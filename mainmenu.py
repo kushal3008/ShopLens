@@ -5,9 +5,10 @@ import mysql.connector
 db = mysql.connector.connect(host="localhost", user="root", passwd="Kushal3008@", database="ShopLens")
 cursor = db.cursor()
 from register import registerProduct
-
+billAmount = 0
 
 def mainMenu():
+    global billAmount
     #Creating a desktop
     window = tk.Tk()
     window.geometry("1920x1024")
@@ -44,16 +45,13 @@ def mainMenu():
         ProductBox.delete(0,tk.END)
         QuantityBox.delete(0, tk.END)
 
-        # Displaying items added in cart
-
-        items = "Hi"
-        billarea.config(state="normal")
-        billarea.insert(tk.END,items + "\n")
 
     add1 = Button(text="Add", width=20, border=6, command=clear)
     add1.grid(padx=90, pady=10, row=9, column=0, sticky="w")
 
     def updateDatabase(event):
+        global billAmount
+
         saleCustomer = customerName.get().lower()
         saleProduct = str(ProductBox.get().lower())
         saleQuantity = int(QuantityBox.get())
@@ -75,11 +73,26 @@ def mainMenu():
         else:
             stockUpdate = 0
 
+        billAmount += salesAmount
         query2 = "insert into sales(CustomerName,Item,ItemQuantity,PricePerUnit,Amount,Date) values (%s,%s,%s,%s,%s,%s)"
         values = [saleCustomer,saleProduct,saleQuantity,salesPrice,salesAmount,salesDate]
         cursor.execute(query2,values)
         cursor.execute(f"update Products set Quantity = {stockUpdate} where ProductName = '{saleProduct}';")
         db.commit()
+
+        totalAmount.config(state="normal")
+        totalAmount.delete(0, tk.END)  # Clear the entry before inserting new value
+        totalAmount.insert(tk.END, f"Total Amount:\t{billAmount}")
+        totalAmount.config(state="readonly")
+
+
+
+        # Displaying items added in cart
+
+        items = f"{saleProduct}\t\t\t\t\t\t\t{saleQuantity}\t\t\t\t\t\t\t{salesPrice}\t\t\t\t\t\t\t{salesAmount}"
+        billarea.config(state="normal")
+        billarea.insert(tk.END, items + "\n")
+        billarea.config(state="disabled")
 
 
     #Adding event to update database
@@ -88,8 +101,21 @@ def mainMenu():
 
     #Addinng Textarea where bill item will be displayed
 
-    billarea = Text(state="disabled",height=20,width=186,background="grey")
+
+    billarea = Text(height=20,width=186,background="light blue",font=('Arial',11,"bold"))
+    billarea.insert(tk.END, 297 * f"-" + "\n")
+    billarea.insert(tk.END, f"Product Name\t\t\t\t\t\t\tQuantity\t\t\t\t\t\t\tPrice Per Quantity\t\t\t\t\t\t\tAmount\n")
+    billarea.insert(tk.END, 297*f"-"+"\n")
+    billarea.config(state="disabled")
     billarea.grid(padx=20,row=10,column=0,sticky="w")
+
+    #Displaying Total Amount
+
+    totalAmount = Entry(width=30, font=('Arial', 15, 'bold'),background="white")
+    totalAmount.insert(tk.END, f"Total Amount:\t{billAmount}")
+    totalAmount.config(state="readonly")
+    totalAmount.grid(row=11, column=0, pady=20, padx=200, ipady=10)
+
 
 
 
