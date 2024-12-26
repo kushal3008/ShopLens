@@ -1,10 +1,12 @@
 import tkinter as tk
+from cProfile import label
 from tkinter import *
 from datetime import date
 import mysql.connector
 db = mysql.connector.connect(host="localhost", user="root", passwd="Kushal3008@", database="ShopLens")
 cursor = db.cursor()
 from register import registerProduct
+from salesGraph import viewGraph
 billAmount = 0
 
 def mainMenu():
@@ -19,7 +21,10 @@ def mainMenu():
     menubar = tk.Menu(window)
     window.config(menu=menubar)
     optmenu =tk.Menu(menubar,tearoff=0)
+    salesMenu = tk.Menu(menubar,tearoff=0)
     menubar.add_cascade(label="Options",menu=optmenu)
+    menubar.add_cascade(label="Sales",menu=salesMenu)
+    salesMenu.add_command(label="View Sales Graph",command=lambda :viewGraph())
     optmenu.add_command(label="Register Product",command=lambda :registerProduct())
 
     #Adding GUI for creating bill
