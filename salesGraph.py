@@ -15,7 +15,7 @@ def viewGraph():
     if data:
         products = [row[0] for row in data]
         quantities = [row[1] for row in data]
-        plt.figure(figsize=(10, 6), num="Graph")
+        plt.figure(figsize=(10, 6), num="Sales Graph")
         plt.bar(products, quantities, color='skyblue')
         plt.xlabel('Product', fontsize=12)
         plt.ylabel("Quantity Sold", fontsize=12)
