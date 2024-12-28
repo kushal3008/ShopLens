@@ -7,6 +7,13 @@ import mysql.connector
 from register import registerProduct, cursor
 from salesGraph import viewGraph
 from fpdf import FPDF
+import smtplib
+import ssl
+import os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from dotenv import load_dotenv
 billAmount = 0
 def mainMenu():
     global billAmount,billID
@@ -183,7 +190,8 @@ def mainMenu():
             billID = int(result3[0])
         else:
             billID = 1000
-        generatePDF(billID)
+        path,email = generatePDF(billID)
+        send_email_with_pdf(path,email)
         billAmount = 0
         totalAmount.config(state="normal")
         totalAmount.delete(0, tk.END)  # Clear the entry before inserting new value
@@ -264,10 +272,45 @@ def mainMenu():
         pdf.cell(w=30, h=8, txt=str(total_sum), border=1, align="C", ln=1)
 
         # Save the PDF
-        pdf.output(f"./PDFs/{BillId}.pdf")
+        path = f"./PDFs/{BillId}.pdf"
+        pdf.output(path)
         print("PDF generated successfully!")
         cursor.close()
         db.close()
+        return (path,email)
+
+    def send_email_with_pdf(pdf_path,receiver):
+        subject = "Subject: Your Shopping Bill"
+        body = "Thanks for purchase."
+        host = "smtp.gmail.com"
+        port = 465
+        user_name = "kushal.om30@gmail.com"  # Email address
+        password = "evju lcnd zmwl wdow"  # App password
+
+        context = ssl.create_default_context()
+
+        # Create the email message
+        msg = MIMEMultipart()
+        msg['From'] = user_name
+        msg['To'] = receiver
+        msg['Subject'] = subject
+
+        # Attach the body of the email
+        msg.attach(MIMEText(body, 'plain'))
+
+        # Attach the PDF file
+        with open(pdf_path, 'rb') as file:
+            attach_part = MIMEApplication(file.read(), _subtype="pdf")
+            attach_part.add_header('Content-Disposition', 'attachment', filename=os.path.basename(pdf_path))
+            msg.attach(attach_part)
+
+        try:
+            with smtplib.SMTP_SSL(host, port, context=context) as server:
+                server.login(user_name, password)
+                server.sendmail(user_name, receiver, msg.as_string())
+            print("Email with PDF sent successfully!")
+        except Exception as e:
+            print(f"Failed to send email: {e}")
 
     window.mainloop()
 
