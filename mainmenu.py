@@ -6,6 +6,7 @@ from datetime import date
 import mysql.connector
 from register import registerProduct, cursor
 from salesGraph import viewGraph
+from fpdf import FPDF
 billAmount = 0
 def mainMenu():
     global billAmount,billID
@@ -126,7 +127,9 @@ def mainMenu():
 
     #Displaying Total Amount
 
+
     totalAmount = Entry(width=30, font=('Arial', 15, 'bold'),background="white")
+    totalAmount.config(state="normal")
     totalAmount.insert(tk.END, f"Total Amount:\t{billAmount}")
     totalAmount.config(state="readonly")
     totalAmount.grid(row=13, column=0, pady=20, padx=200, ipady=10, sticky="e")
@@ -174,9 +177,95 @@ def mainMenu():
         QuantityBox.delete(0, tk.END)
         emailBox.delete(0,tk.END)
         customerName.delete(0,tk.END)
+        cursor.execute("select BillId from buys order by BillId desc limit 1;")
+        result3 = cursor.fetchone()
+        if result3:
+            billID = int(result3[0])
+        else:
+            billID = 1000
+        generatePDF(billID)
+        billAmount = 0
+        totalAmount.config(state="normal")
+        totalAmount.delete(0, tk.END)  # Clear the entry before inserting new value
+        totalAmount.insert(tk.END, f"Total Amount:\t{billAmount}")
+        totalAmount.config(state="readonly")
         billarea.config(state="normal")
         billarea.delete("4.0",tk.END)
         billarea.config(state="disabled")
+        cursor.close()
+        db.close()
+
+    def generatePDF(BillId):
+        db = mysql.connector.connect(host="localhost", user="root", passwd="Kushal3008@", database="ShopLens")
+        cursor = db.cursor()
+        pdf = FPDF(orientation='P', unit='mm', format='A4')
+        pdf.add_page()
+
+        # Add Invoice Number
+        pdf.set_font(family="Times", style="B", size=32)
+        pdf.cell(w=185, h=16, txt="ShopLens", ln=1, align="C")
+
+        # Add Invoice Number
+        pdf.set_font(family="Times", style="B", size=16)
+        pdf.cell(w=50, h=8, txt=f"Invoice Nr. {BillId}", ln=1)
+
+        # Fetch and add Date
+        query = f"SELECT Date FROM sales WHERE BillId={BillId} GROUP BY Date;"
+        cursor.execute(query)
+        date = cursor.fetchall()
+        pdf.set_font(family="Times", style="B", size=16)
+        pdf.cell(w=50, h=8, txt=f"Date : {date[0][0]}", ln=1)
+
+        # Fetch and add Customer Name and Email
+        query = f"""
+        SELECT c.Name, c.Email 
+        FROM customers AS c 
+        INNER JOIN buys AS b ON c.CustomerId = b.CustomerId 
+        WHERE b.BillId={BillId};
+        """
+        cursor.execute(query)
+        name, email = cursor.fetchone()
+        pdf.set_font(family="Times", style="B", size=16)
+        pdf.cell(w=50, h=8, txt=f"Name : {str(name).capitalize()}", ln=1)
+        pdf.cell(w=50, h=8, txt=f"Email : {email}", ln=1)
+
+        # Add table headers
+        columns = ["Item", "Quantity", "Price per Unit", "Amount"]
+        pdf.ln(20)
+        pdf.set_font(family="Times", style="B", size=12)
+        pdf.cell(w=50, h=8, txt=columns[0], border=1, align="C")
+        pdf.cell(w=30, h=8, txt=columns[1], border=1, align="C")
+        pdf.cell(w=50, h=8, txt=columns[2], border=1, align="C")
+        pdf.cell(w=30, h=8, txt=columns[3], border=1, align="C", ln=1)
+
+        # Fetch and add sales data
+        query = f"""
+        SELECT s.Item, s.Quantity, s.PricePerUnit, s.Amount 
+        FROM sales AS s 
+        WHERE s.BillId={BillId};
+        """
+        cursor.execute(query)
+        total_sum = 0
+        for row in cursor.fetchall():
+            pdf.set_font(family="Times", size=10, style="B")
+            pdf.cell(w=50, h=8, txt=str(row[0]).capitalize(), border=1, align="C")
+            pdf.set_font(family="Times", size=10)
+            pdf.cell(w=30, h=8, txt=str(row[1]), border=1, align="C")
+            pdf.cell(w=50, h=8, txt=str(row[2]), border=1, align="C")
+            pdf.cell(w=30, h=8, txt=str(row[3]), border=1, align="C", ln=1)
+            total_sum += row[3]
+
+        # Add total row
+        pdf.set_font(family="Times", style="B", size=12)
+        # pdf.set_font(family="Times", size=10)
+        pdf.cell(w=50, h=8, txt="Total", border=1, align="C")
+        pdf.cell(w=30, h=8, txt="-", border=1, align="C")
+        pdf.cell(w=50, h=8, txt="-", border=1, align="C")
+        pdf.cell(w=30, h=8, txt=str(total_sum), border=1, align="C", ln=1)
+
+        # Save the PDF
+        pdf.output(f"./PDFs/{BillId}.pdf")
+        print("PDF generated successfully!")
         cursor.close()
         db.close()
 
