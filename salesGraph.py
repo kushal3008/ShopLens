@@ -9,7 +9,7 @@ db = mysql.connector.connect(host="localhost", user="root", passwd="Kushal3008@"
 cursor = db.cursor()
 
 def viewGraph():
-    query = "select Item as Product, Sum(ItemQuantity) as TotalQuantity from sales group by Item"
+    query = "select Item as Product, Sum(Quantity) as TotalQuantity from sales group by Item"
     cursor.execute(query)
     data =cursor.fetchall()
     if data:
@@ -28,4 +28,6 @@ def viewGraph():
 
     salesImage = tk.Label(image=image)
     salesImage.grid(row=0,column=0)
+    cursor.close()
+    db.close()
 
