@@ -228,7 +228,7 @@ def mainMenu():
 
         # Add Invoice Number
         pdf.set_font(family="Times", style="B", size=16)
-        pdf.cell(w=50, h=8, txt=f"Invoice Nr. {BillId}", ln=1)
+        pdf.cell(w=50, h=8, txt=f"BillID: BI{BillId}", ln=1)
 
         # Fetch and add Date
         query = f"SELECT Date FROM sales WHERE BillId={BillId} GROUP BY Date;"
@@ -254,6 +254,7 @@ def mainMenu():
         columns = ["Item", "Quantity", "Price per Unit", "Amount"]
         pdf.ln(20)
         pdf.set_font(family="Times", style="B", size=12)
+        pdf.cell(w=15, h=8, txt="", border=0, align="C")
         pdf.cell(w=50, h=8, txt=columns[0], border=1, align="C")
         pdf.cell(w=30, h=8, txt=columns[1], border=1, align="C")
         pdf.cell(w=50, h=8, txt=columns[2], border=1, align="C")
@@ -269,6 +270,7 @@ def mainMenu():
         total_sum = 0
         for row in cursor.fetchall():
             pdf.set_font(family="Times", size=10, style="B")
+            pdf.cell(w=15, h=8, txt="", border=0, align="C")
             pdf.cell(w=50, h=8, txt=str(row[0]).capitalize(), border=1, align="C")
             pdf.set_font(family="Times", size=10)
             pdf.cell(w=30, h=8, txt=str(row[1]), border=1, align="C")
@@ -278,7 +280,7 @@ def mainMenu():
 
         # Add total row
         pdf.set_font(family="Times", style="B", size=12)
-        # pdf.set_font(family="Times", size=10)
+        pdf.cell(w=15, h=8, txt="", border=0, align="C")
         pdf.cell(w=50, h=8, txt="Total", border=1, align="C")
         pdf.cell(w=30, h=8, txt="-", border=1, align="C")
         pdf.cell(w=50, h=8, txt="-", border=1, align="C")
