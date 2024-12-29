@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Register and Create a bill">
+      <change afterPath="$PROJECT_DIR$/updatestock.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mainmenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainmenu.py" afterDir="false" />
     </list>
@@ -23,18 +24,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "kushal3008"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kushal3008&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/kushal3008/ShopLens.git",
-    "accountId": "0fbcbfb6-1268-429e-8599-7b70fec78fd6"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kushal3008/ShopLens.git&quot;,
+    &quot;accountId&quot;: &quot;0fbcbfb6-1268-429e-8599-7b70fec78fd6&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
@@ -45,20 +46,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.addButton.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.register.executor&quot;: &quot;Run&quot;,
-    &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
-    &quot;Python.salesGraph.executor&quot;: &quot;Run&quot;,
-    &quot;Python.try.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.addButton.executor": "Run",
+    "Python.mainmenu.executor": "Run",
+    "Python.register.executor": "Run",
+    "Python.registerProduct.executor": "Run",
+    "Python.salesGraph.executor": "Run",
+    "Python.try.executor": "Run",
+    "Python.updatestock.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens\PDFs" />
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
     </key>
   </component>
@@ -142,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735382682820</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Register and Create a bill">
+      <option name="closed" value="true" />
+      <created>1735384696378</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1735384696378</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -6,6 +6,7 @@ from datetime import date
 import mysql.connector
 from register import registerProduct, cursor
 from salesGraph import viewGraph
+from updatestock import updateStock
 from fpdf import FPDF
 import smtplib
 import ssl
@@ -14,9 +15,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from dotenv import load_dotenv
-billAmount = 0
 def mainMenu():
-    global billAmount,billID
+    global billID
 
     #Creating a desktop
     window = tk.Tk()
@@ -33,6 +33,7 @@ def mainMenu():
     menubar.add_cascade(label="Sales",menu=salesMenu)
     salesMenu.add_command(label="View Sales Graph",command=lambda :viewGraph())
     optmenu.add_command(label="Register Product",command=lambda :registerProduct())
+    optmenu.add_command(label="Update Inventory",command=lambda :updateStock())
 
     #Adding GUI for creating bill
 
@@ -62,9 +63,9 @@ def mainMenu():
     add1.grid(padx=90, pady=10, row=11, column=0, sticky="w")
 
     def updateDatabase(event):
-        global billAmount
         db = mysql.connector.connect(host="localhost", user="root", passwd="Kushal3008@", database="ShopLens")
         cursor = db.cursor()
+
         saleProduct = str(ProductBox.get().lower().strip())
         saleQuantity = int(QuantityBox.get())
         salesDate = date.today()
@@ -80,7 +81,6 @@ def mainMenu():
         result2 = cursor.fetchone()
         if int(result2[0]) > 0:
             stockUpdate = int(result2[0]) - saleQuantity
-            billAmount += salesAmount
             cursor.execute("select BillId from buys order by BillId desc limit 1;")
             result3 = cursor.fetchone()
             if result3:
@@ -92,6 +92,14 @@ def mainMenu():
             cursor.execute(query2, values)
             cursor.execute(f"update Products set Quantity = {stockUpdate} where ProductName = '{saleProduct}';")
             db.commit()
+            cursor.execute(f"select sum(Amount) from sales where BillId = {billID};")
+            result = cursor.fetchone()
+            if result[0] != None:
+                billAmount = int(result[0])
+            else:
+                billAmount = 0
+
+
 
             # Displaying total amount of the purchase
 
@@ -137,7 +145,7 @@ def mainMenu():
 
     totalAmount = Entry(width=30, font=('Arial', 15, 'bold'),background="white")
     totalAmount.config(state="normal")
-    totalAmount.insert(tk.END, f"Total Amount:\t{billAmount}")
+    totalAmount.insert(tk.END, f"Total Amount:\t0")
     totalAmount.config(state="readonly")
     totalAmount.grid(row=13, column=0, pady=20, padx=200, ipady=10, sticky="e")
 
@@ -198,7 +206,12 @@ def mainMenu():
         totalAmount.insert(tk.END, f"Total Amount:\t{billAmount}")
         totalAmount.config(state="readonly")
         billarea.config(state="normal")
-        billarea.delete("4.0",tk.END)
+        billarea.delete("1.0",tk.END)
+        billarea.config(state="disabled")
+        billarea.config(state="normal")
+        billarea.insert(tk.END, 297 * f"-" + "\n")
+        billarea.insert(tk.END,f"Product Name\t\t\t\t\t\t\tQuantity\t\t\t\t\t\t\tPrice Per Quantity\t\t\t\t\t\t\tAmount\n")
+        billarea.insert(tk.END, 297 * f"-" + "\n")
         billarea.config(state="disabled")
         cursor.close()
         db.close()
