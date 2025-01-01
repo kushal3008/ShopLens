@@ -48,6 +48,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.addButton.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui1.executor&quot;: &quot;Run&quot;,
     &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
     &quot;Python.register.executor&quot;: &quot;Run&quot;,
     &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
@@ -55,13 +57,14 @@
     &quot;Python.try.executor&quot;: &quot;Run&quot;,
     &quot;Python.updatestock.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kushal/OneDrive/Desktop/New folder&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens\PDFs" />
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
+      <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens\PDFs" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -160,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735468437730</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Register and Create a bill">
+      <option name="closed" value="true" />
+      <created>1735489105395</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1735489105395</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

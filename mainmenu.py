@@ -110,7 +110,7 @@ def mainMenu():
 
             # Displaying items added in cart
 
-            items = f"{saleProduct}\t\t\t\t\t\t\t{saleQuantity}\t\t\t\t\t\t\t{salesPrice}\t\t\t\t\t\t\t{salesAmount}"
+            items = f"{saleProduct  }\t\t\t\t\t\t\t{saleQuantity}\t\t\t\t\t\t\t{salesPrice}\t\t\t\t\t\t\t{salesAmount}"
             billarea.config(state="normal")
             billarea.insert(tk.END, items + "\n")
             billarea.config(state="disabled")
@@ -228,7 +228,7 @@ def mainMenu():
 
         # Add Invoice Number
         pdf.set_font(family="Times", style="B", size=16)
-        pdf.cell(w=50, h=8, txt=f"BillID: BI{BillId}", ln=1)
+        pdf.cell(w=50, h=8, txt=f"BillID: BID{BillId}", ln=1)
 
         # Fetch and add Date
         query = f"SELECT Date FROM sales WHERE BillId={BillId} GROUP BY Date;"
@@ -326,7 +326,6 @@ def mainMenu():
             print("Email with PDF sent successfully!")
         except Exception as e:
             print(f"Failed to send email: {e}")
-
     window.mainloop()
 
 
