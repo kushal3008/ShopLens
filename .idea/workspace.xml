@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Register and Create a bill">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mainmenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/mainmenu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PDFs/1000.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,22 +44,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.addButton.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.register.executor&quot;: &quot;Run&quot;,
-    &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
-    &quot;Python.salesGraph.executor&quot;: &quot;Run&quot;,
-    &quot;Python.try.executor&quot;: &quot;Run&quot;,
-    &quot;Python.updatestock.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kushal/OneDrive/Desktop/New folder&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.addButton.executor": "Run",
+    "Python.gui.executor": "Run",
+    "Python.gui1.executor": "Run",
+    "Python.gui2.executor": "Run",
+    "Python.gui3.executor": "Run",
+    "Python.mainmenu.executor": "Run",
+    "Python.register.executor": "Run",
+    "Python.registerProduct.executor": "Run",
+    "Python.salesGraph.executor": "Run",
+    "Python.try.executor": "Run",
+    "Python.updatestock.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Kushal/OneDrive/Desktop/New folder"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
@@ -171,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735489105395</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Register and Create a bill">
+      <option name="closed" value="true" />
+      <created>1735729917970</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1735729917970</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

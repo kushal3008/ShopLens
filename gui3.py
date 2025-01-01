@@ -5,6 +5,7 @@
 
 from pathlib import Path
 import sqlite3
+from gui2 import signinPage
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -177,7 +178,7 @@ def loginPage():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: signinPage(),
         relief="flat"
     )
     signinButton.place(
