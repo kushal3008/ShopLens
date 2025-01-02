@@ -6,9 +6,11 @@
 from pathlib import Path
 import sqlite3
 from datetime import date
+import os
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Label
+from PIL import Image,ImageTk
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -18,22 +20,8 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def mainScreen():
-    window = Tk()
+def mainScreen(canvas):
 
-    window.geometry("1440x788")
-    window.configure(bg = "#A5D1E1")
-
-
-    canvas = Canvas(
-        window,
-        bg = "#A5D1E1",
-        height = 788,
-        width = 1440,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
-    )
 
     canvas.place(x = 0, y = 0)
     canvas.create_rectangle(
@@ -178,7 +166,7 @@ def mainScreen():
         anchor="nw",
         text="Total Amount:",
         fill="#FFFFFF",
-        font=("Inter Bold", 25 * -1)
+        font=("Inter", 25 * -1,"bold")
     )
 
     canvas.create_rectangle(
@@ -263,6 +251,8 @@ def mainScreen():
         166.0,
         image=image_image_1
     )
+    canvas.image = image_image_1
+
 
     entry_image_6 = PhotoImage(
         file=relative_to_assets("entry_6.png"))
@@ -282,17 +272,20 @@ def mainScreen():
         x=1220.0,
         y=696.0,
         width=165.0,
-        height=48.0
+        height=50.0
     )
 
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     registerButton = Button(
-        image=button_image_1,
+        text="Register & Update",
         borderwidth=0,
         highlightthickness=0,
         command=lambda: print("button_1 clicked"),
-        relief="flat"
+        relief="flat",
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
     )
     registerButton.place(
         x=24.0,
@@ -304,11 +297,14 @@ def mainScreen():
     button_image_2 = PhotoImage(
         file=relative_to_assets("button_2.png"))
     mostSoldButton = Button(
-        image=button_image_2,
+        text="Most Sold Product",
         borderwidth=0,
         highlightthickness=0,
         command=lambda: print("button_2 clicked"),
-        relief="flat"
+        relief="flat",
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
     )
     mostSoldButton.place(
         x=316.0,
@@ -320,11 +316,14 @@ def mainScreen():
     button_image_3 = PhotoImage(
         file=relative_to_assets("button_3.png"))
     generateBill = Button(
-        image=button_image_3,
+        text="Generate Bill",
         borderwidth=0,
         highlightthickness=0,
         command=lambda: print("button_3 clicked"),
-        relief="flat"
+        relief="flat",
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
     )
     generateBill.place(
         x=620.0,
@@ -336,11 +335,14 @@ def mainScreen():
     button_image_4 = PhotoImage(
         file=relative_to_assets("button_4.png"))
     checkButton = Button(
-        image=button_image_4,
+        text="Check",
         borderwidth=0,
         highlightthickness=0,
         command=lambda: print("button_4 clicked"),
-        relief="flat"
+        relief="flat",
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 16, "bold")
     )
     checkButton.place(
         x=836.0,
@@ -348,23 +350,33 @@ def mainScreen():
         width=89.25732421875,
         height=37.6552734375
     )
-    window.resizable(False, False)
-    window.mainloop()
+    # window.resizable(False, False)
+    # window.mainloop()
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
     query = ""
-    
+
     customerName = customerBox.get().lower().strip()
     email = emailBox.get().lower().strip()
     productName = productBox.get().lower().strip()
     quantity = quantityBox.get()
     purDate = date.today()
 
-    
-
-
-
-
-
 if __name__ == "__main__":
-    mainScreen()
+    window = Tk()
+
+    window.geometry("1440x788")
+    window.configure(bg="#A5D1E1")
+
+    canvas = Canvas(
+        window,
+        bg="#A5D1E1",
+        height=788,
+        width=1440,
+        bd=0,
+        highlightthickness=0,
+        relief="ridge"
+    )
+    mainScreen(canvas)
+    window.resizable(False,False)
+    window.mainloop()

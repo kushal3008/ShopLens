@@ -5,19 +5,20 @@
 
 from pathlib import Path
 import sqlite3
+import os
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame2")
+
+ASSETS_PATH = os.path.join("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame2")
 
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def signinPage():
+def signinPage(canvas,switch_to_login):
     # Creating database to store user data
 
     con = sqlite3.connect("ShopLens.db")
@@ -27,30 +28,24 @@ def signinPage():
 
     # Creating UI
 
-    window = Tk()
+    # window = Tk()
+    #
+    # window.geometry("1440x788")
+    # window.configure(bg = "#5D6794")
 
-    window.geometry("1440x788")
-    window.configure(bg = "#5D6794")
 
-
-    canvas = Canvas(
-        window,
-        bg = "#5D6794",
-        height = 788,
-        width = 1440,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
-    )
+    # canvas = Canvas(
+    #     window,
+    #     bg = "#5D6794",
+    #     height = 788,
+    #     width = 1440,
+    #     bd = 0,
+    #     highlightthickness = 0,
+    #     relief = "ridge"
+    # )
 
     canvas.place(x = 0, y = 0)
-    canvas.create_rectangle(
-        720.0,
-        0.0,
-        1440.0,
-        788.0,
-        fill="#5B7699",
-        outline="")
+
 
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
@@ -65,7 +60,7 @@ def signinPage():
         46.0,
         1070.0,
         742.0,
-        fill="#A5D1E1",
+        fill="#0F3ADA",
         outline="")
 
     canvas.create_text(
@@ -73,7 +68,7 @@ def signinPage():
         520.0,
         anchor="nw",
         text="Enter Your Shop Name",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 29 * -1)
     )
 
@@ -82,7 +77,7 @@ def signinPage():
         404.0,
         anchor="nw",
         text="Enter Your Username",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 29 * -1)
     )
 
@@ -91,7 +86,7 @@ def signinPage():
         288.0,
         anchor="nw",
         text="Enter Your Password",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 29 * -1)
     )
 
@@ -100,7 +95,7 @@ def signinPage():
         172.0,
         anchor="nw",
         text="Enter Your Email",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 29 * -1)
     )
 
@@ -199,29 +194,29 @@ def signinPage():
         shopname = str(shopnameBox.get().lower().strip())
         query1 = "insert into User(UserName, Email, Password, ShopName) values(?,?,?,?)"
         values = [username, email, password, shopname]
-        cursor.execute(query1, values)
-        con.commit()
-        canvas.create_text(
-            573.0,
-            603.0,
-            anchor="nw",
-            text="!!Registered User Successfully!!",
-            fill="#000000",
-            font=("Inter Bold", 20 * -1)
-        )
-        signEmailBox.delete(0, 'end')
-        signPassBox.delete(0, 'end')
-        signUserBox.delete(0, 'end')
-        shopnameBox.delete(0, 'end')
+        if email == "" or password == "" or username == "" or shopname =="":
+            print("Enter")
+        else:
+            cursor.execute(query1, values)
+            con.commit()
+            cursor.execute(f"select * from User where Email = '{email}';")
+            result = cursor.fetchall()
+            if result:
+                delete(var)
+                con.close()
+            else:
+                insertUserDetails()
 
 
-    button_image_1 = PhotoImage(
-        file=relative_to_assets("button_1.png"))
+    # button_image_1 = PhotoImage(
+    #     file=relative_to_assets("button_1.png"))
     signButton = Button(
-        image=button_image_1,
+        text="Sign In",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda :insertUserDetails(),
+        command=insertUserDetails,
+        bg = "#A5D1E1",
+        font=("Inter", 29, "bold"),
         relief="flat"
     )
 
@@ -237,13 +232,16 @@ def signinPage():
         62.0,
         anchor="nw",
         text="Sign In",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 50 * -1)
     )
-    window.resizable(False, False)
-    window.mainloop()
-
-    con.close()
+    var = [signButton,signEmailBox,signUserBox,signPassBox,shopnameBox]
+    def delete(var):
+        for i in var:
+            i.destroy()
+        switch_to_login()
+    #window.resizable(False, False)
+    #window.mainloop()
 
 
 

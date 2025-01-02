@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Register and Create a bill">
-      <change afterPath="$PROJECT_DIR$/PDFs/1000.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LoginPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/LoginPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShopLens.db" beforeDir="false" afterPath="$PROJECT_DIR$/ShopLens.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignInPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignInPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui1.py" beforeDir="false" afterPath="$PROJECT_DIR$/register_update.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,24 +51,35 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.LoginPage.executor": "Run",
+    "Python.SignInPage.executor": "Run",
     "Python.addButton.executor": "Run",
     "Python.gui.executor": "Run",
     "Python.gui1.executor": "Run",
     "Python.gui2.executor": "Run",
     "Python.gui3.executor": "Run",
+    "Python.main_menu.executor": "Run",
     "Python.mainmenu.executor": "Run",
     "Python.register.executor": "Run",
     "Python.registerProduct.executor": "Run",
+    "Python.register_update.executor": "Run",
     "Python.salesGraph.executor": "Run",
     "Python.try.executor": "Run",
+    "Python.try2.executor": "Run",
     "Python.updatestock.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Kushal/OneDrive/Desktop/New folder"
+    "last_opened_file_path": "C:/Users/Kushal/OneDrive/Desktop/ShopLens",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens\build\assets\frame0" />
+      <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens\build\assets\frame3" />
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens\PDFs" />
     </key>
@@ -180,7 +196,23 @@
       <option name="project" value="LOCAL" />
       <updated>1735729917970</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Register and Create a bill">
+      <option name="closed" value="true" />
+      <created>1735732342030</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1735732342030</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Register and Create a bill">
+      <option name="closed" value="true" />
+      <created>1735732557596</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1735732557596</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

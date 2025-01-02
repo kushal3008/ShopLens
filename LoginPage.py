@@ -5,62 +5,51 @@
 
 from pathlib import Path
 import sqlite3
-from gui2 import signinPage
+import os
+from SignInPage import signinPage
+from main_menu import mainScreen
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 
-OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame3")
+
+ASSETS_PATH = os.path.join("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame3")
 
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def loginPage():
+
+
+def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
+    # window = Tk()
+    #
+    # window.geometry("1440x788")
+    # window.configure(bg = "#5D6794")
 
-    window = Tk()
 
-    window.geometry("1440x788")
-    window.configure(bg = "#5D6794")
-
-
-    canvas = Canvas(
-        window,
-        bg = "#5D6794",
-        height = 788,
-        width = 1440,
-        bd = 0,
-        highlightthickness = 0,
-        relief = "ridge"
-    )
+    # canvas = Canvas(
+    #     window,
+    #     bg = "#5D6794",
+    #     height = 788,
+    #     width = 1440,
+    #     bd = 0,
+    #     highlightthickness = 0,
+    #     relief = "ridge"
+    # )
 
     canvas.place(x = 0, y = 0)
-    canvas.create_rectangle(
-        720.0,
-        0.0,
-        1440.0,
-        788.0,
-        fill="#5B7699",
-        outline="")
 
-    image_image_1 = PhotoImage(
-        file=relative_to_assets("image_1.png"))
-    image_1 = canvas.create_image(
-        720.0,
-        338.0,
-        image=image_image_1
-    )
 
     canvas.create_rectangle(
         370.0,
         67.0,
         1070.0,
         721.0,
-        fill="#A5D1E1",
+        fill="#0F3ADA",
         outline="")
 
     canvas.create_text(
@@ -68,7 +57,7 @@ def loginPage():
         357.0,
         anchor="nw",
         text="Enter Your Password",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 29 * -1)
     )
 
@@ -77,7 +66,7 @@ def loginPage():
         247.0,
         anchor="nw",
         text="Enter Your Email",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 29 * -1)
     )
 
@@ -86,9 +75,10 @@ def loginPage():
         107.0,
         anchor="nw",
         text="Login",
-        fill="#301934",
+        fill="#FFFFFF",
         font=("Inter Bold", 50 * -1)
     )
+
 
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))
@@ -142,28 +132,30 @@ def loginPage():
         cursor.execute(f"select UserID from User where Email = '{email}' and Password = '{password}'")
         data = cursor.fetchone()
         if data:
-            print("Login Successful")
+            deleteforMain()
         else:
             canvas.create_text(
         572.0,
         193.0,
         anchor="nw",
         text="Invalid Email or Password",
-        fill="#000000",
+        fill="#FFFFFF",
         font=("Inter Bold", 24 * -1)
     )
         emailBox.delete(0, 'end')
         passwordBox.delete(0, 'end')
 
 
-    button_image_1 = PhotoImage(
-        file=relative_to_assets("button_1.png"))
+    # button_image_1 = PhotoImage(
+    #     file=relative_to_assets("button_1.png"))
     loginButton = Button(
-        image=button_image_1,
+        text="Login",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: login(),
-        relief="flat"
+        command=login,
+        font=("Inter",29,"bold"),
+        relief="flat",
+        bg="#A5D1E1"
     )
     loginButton.place(
         x=590.0,
@@ -172,14 +164,18 @@ def loginPage():
         height=75.0
     )
 
-    button_image_2 = PhotoImage(
-        file=relative_to_assets("button_2.png"))
+    # button_image_2 = PhotoImage(
+    #     file=relative_to_assets("button_2.png"))
     signinButton = Button(
-        image=button_image_2,
+        text="Dont have an account? Sign in",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: signinPage(),
-        relief="flat"
+        command=lambda :delete(var),
+        font=("Inter", 20, "bold"),
+        relief="flat",
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        foreground="#FFFFFF"
     )
     signinButton.place(
         x=495.0,
@@ -187,12 +183,20 @@ def loginPage():
         width=450.0,
         height=50.0
     )
-
-    
     con.close()
+    var = [signinButton,loginButton,emailBox,passwordBox]
+    def delete(var):
+        for i in var:
+            i.destroy()
+        switch_to_signin()
+    def deleteforMain():
+        for i in var:
+            i.destroy()
+        switch_to_mainScreen()
 
-    window.resizable(False, False)
-    window.mainloop()
+
+    #window.resizable(False, False)
+    # window.mainloop()
 
 if __name__ == "__main__":
     loginPage()
