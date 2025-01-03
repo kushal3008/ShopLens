@@ -10,9 +10,7 @@ from SignInPage import signinPage
 from main_menu import mainScreen
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-
-
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
 
 ASSETS_PATH = os.path.join("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame3")
 
@@ -123,10 +121,30 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         height=37.0
     )
 
+    # Adding View effect in Password Box
+
+    val = IntVar()
+    check = Checkbutton(variable=val, onvalue=1, offvalue=0, bg="#0F3ADA",command=lambda :passwordView())
+    check.place(x=498, y=440, width=10, height=10)
+    canvas.create_text(
+        510.0,
+        438.0,
+        anchor="nw",
+        text="Show Password",
+        fill="#FFFFFF",
+        font=("Inter", 10, "bold")
+    )
+
+    def passwordView():
+        if (val.get() == 1):
+            passwordBox.configure(show="")
+        else:
+            passwordBox.configure(show="*")
+
     # Checking Credentials
     def login():
         email = str(emailBox.get().lower().strip())
-        password = str(passwordBox.get().lower().strip())
+        password = str(passwordBox.get().strip())
         con = sqlite3.connect("ShopLens.db")
         cursor = con.cursor()
         cursor.execute(f"select UserID from User where Email = '{email}' and Password = '{password}'")

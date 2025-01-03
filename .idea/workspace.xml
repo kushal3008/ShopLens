@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Register and Create a bill">
+    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Connected Pages Main menu Database left">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoginPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/LoginPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShopLens.db" beforeDir="false" afterPath="$PROJECT_DIR$/ShopLens.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignInPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignInPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui1.py" beforeDir="false" afterPath="$PROJECT_DIR$/register_update.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +51,7 @@
     "Python.LoginPage.executor": "Run",
     "Python.SignInPage.executor": "Run",
     "Python.addButton.executor": "Run",
+    "Python.core.executor": "Run",
     "Python.gui.executor": "Run",
     "Python.gui1.executor": "Run",
     "Python.gui2.executor": "Run",
@@ -65,6 +63,7 @@
     "Python.register_update.executor": "Run",
     "Python.salesGraph.executor": "Run",
     "Python.try.executor": "Run",
+    "Python.try1.executor": "Run",
     "Python.try2.executor": "Run",
     "Python.updatestock.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -212,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735732557596</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Connected Pages Main menu Database left">
+      <option name="closed" value="true" />
+      <created>1735845577305</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1735845577305</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -228,6 +235,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Register and Create a bill" />
-    <option name="LAST_COMMIT_MESSAGE" value="Register and Create a bill" />
+    <MESSAGE value="Connected Pages Main menu Database left" />
+    <option name="LAST_COMMIT_MESSAGE" value="Connected Pages Main menu Database left" />
   </component>
 </project>

@@ -8,7 +8,7 @@ import sqlite3
 import os
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import *
 
 
 
@@ -142,6 +142,25 @@ def signinPage(canvas,switch_to_login):
         height=37.0
     )
 
+    # Adding View effect in Password Box
+
+    val = IntVar()
+    check = Checkbutton(variable=val, onvalue=1, offvalue=0, bg="#0F3ADA", command=lambda: passwordView())
+    check.place(x=498, y=370, width=10, height=10)
+    canvas.create_text(
+        510.0,
+        368.0,
+        anchor="nw",
+        text="Show Password",
+        fill="#FFFFFF",
+        font=("Inter", 10, "bold")
+    )
+    def passwordView():
+        if (val.get() == 1):
+            signPassBox.configure(show="")
+        else:
+            signPassBox.configure(show="*")
+
     entry_image_3 = PhotoImage(
         file=relative_to_assets("entry_3.png"))
     entry_bg_3 = canvas.create_image(
@@ -189,9 +208,9 @@ def signinPage(canvas,switch_to_login):
         # Fetching values from GUI
 
         email = str(signEmailBox.get().lower().strip())
-        password = str(signPassBox.get().lower().strip())
-        username = str(signUserBox.get().lower().strip())
-        shopname = str(shopnameBox.get().lower().strip())
+        password = str(signPassBox.get().strip())
+        username = str(signUserBox.get().strip())
+        shopname = str(shopnameBox.get().strip())
         query1 = "insert into User(UserName, Email, Password, ShopName) values(?,?,?,?)"
         values = [username, email, password, shopname]
         if email == "" or password == "" or username == "" or shopname =="":
