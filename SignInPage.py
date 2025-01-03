@@ -9,8 +9,9 @@ import os
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import *
+from warnings import catch_warnings
 
-
+from mysql.connector import IntegrityError
 
 ASSETS_PATH = os.path.join("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame2")
 
@@ -23,7 +24,7 @@ def signinPage(canvas,switch_to_login):
 
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
-    query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255), Password varchar(255), ShopName varchar(255));"
+    query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255) Unique, Password varchar(255), ShopName varchar(255));"
     cursor.execute(query)
 
     # Creating UI
@@ -213,18 +214,32 @@ def signinPage(canvas,switch_to_login):
         shopname = str(shopnameBox.get().strip())
         query1 = "insert into User(UserName, Email, Password, ShopName) values(?,?,?,?)"
         values = [username, email, password, shopname]
+        cursor.execute(f"select * from User where Email = '{email}';")
+        result1 = cursor.fetchall()
         if email == "" or password == "" or username == "" or shopname =="":
             print("Enter")
+        elif result1:
+            canvas.create_text(
+                586.0,
+                135.0,
+                anchor="nw",
+                text="! Email Already Registered !",
+                fill="#FFFFFF",
+                font=("Inter", 16, "bold")
+            )
         else:
-            cursor.execute(query1, values)
-            con.commit()
-            cursor.execute(f"select * from User where Email = '{email}';")
-            result = cursor.fetchall()
-            if result:
-                delete(var)
-                con.close()
-            else:
-                insertUserDetails()
+                cursor.execute(query1, values)
+                con.commit()
+                cursor.execute(f"select * from User where Email = '{email}';")
+                result = cursor.fetchall()
+                if result:
+                    delete(var)
+                    con.close()
+                else:
+                    insertUserDetails()
+
+
+
 
 
     # button_image_1 = PhotoImage(

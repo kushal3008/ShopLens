@@ -160,8 +160,8 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         fill="#FFFFFF",
         font=("Inter Bold", 24 * -1)
     )
-        emailBox.delete(0, 'end')
-        passwordBox.delete(0, 'end')
+            emailBox.delete(0, 'end')
+            passwordBox.delete(0, 'end')
 
 
     # button_image_1 = PhotoImage(
