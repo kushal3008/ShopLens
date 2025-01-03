@@ -20,7 +20,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def mainScreen(canvas):
+def mainScreen(canvas,switch_to_register):
 
 
     canvas.place(x = 0, y = 0)
@@ -281,7 +281,7 @@ def mainScreen(canvas):
         text="Register & Update",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda :deleteforRegister(var),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
@@ -350,6 +350,12 @@ def mainScreen(canvas):
         width=89.25732421875,
         height=37.6552734375
     )
+    var = [registerButton,mostSoldButton,customerBox,emailBox,productBox,quantityBox,generateBill,totalAmount,billArea,checkButton]
+    def deleteforRegister(var):
+        for i in var:
+            i.destroy()
+        switch_to_register()
+
     # window.resizable(False, False)
     # window.mainloop()
     con = sqlite3.connect("ShopLens.db")
@@ -361,6 +367,7 @@ def mainScreen(canvas):
     productName = productBox.get().lower().strip()
     quantity = quantityBox.get()
     purDate = date.today()
+
 
 if __name__ == "__main__":
     window = Tk()

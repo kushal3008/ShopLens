@@ -202,11 +202,12 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         height=50.0
     )
     con.close()
-    var = [signinButton,loginButton,emailBox,passwordBox]
+    var = [signinButton,loginButton,emailBox,passwordBox,check]
     def delete(var):
         for i in var:
             i.destroy()
         switch_to_signin()
+
     def deleteforMain():
         for i in var:
             i.destroy()

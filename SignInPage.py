@@ -269,20 +269,13 @@ def signinPage(canvas,switch_to_login):
         fill="#FFFFFF",
         font=("Inter Bold", 50 * -1)
     )
-    var = [signButton,signEmailBox,signUserBox,signPassBox,shopnameBox]
+    var = [signButton,signEmailBox,signUserBox,signPassBox,shopnameBox,check]
     def delete(var):
         for i in var:
             i.destroy()
         switch_to_login()
     #window.resizable(False, False)
     #window.mainloop()
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     signinPage()

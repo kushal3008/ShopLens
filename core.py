@@ -2,6 +2,7 @@ from tkinter import Tk, Canvas, Button
 from LoginPage import loginPage
 from SignInPage import signinPage
 from main_menu import mainScreen
+from register_update import registerProduct
 
 def main():
     # Initialize the main Tkinter window
@@ -34,7 +35,12 @@ def main():
 
     def show_mainmenu():
         canvas.delete("all")
-        mainScreen(canvas)
+        mainScreen(canvas,show_register)
+
+    def show_register():
+        canvas.delete("all")
+        registerProduct(canvas)
+
 
 
     # Initially, show the login page
