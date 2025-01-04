@@ -21,7 +21,7 @@ def relative_to_assets(path: str) -> Path:
 
 def signinPage(canvas,switch_to_login):
     # Creating database to store user data
-
+    canvas.configure(bg="#5D6795")
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
     query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255) Unique, Password varchar(255), ShopName varchar(255));"
@@ -61,7 +61,7 @@ def signinPage(canvas,switch_to_login):
         46.0,
         1070.0,
         742.0,
-        fill="#0F3ADA",
+        fill="#A5D1E1",
         outline="")
 
     canvas.create_text(
@@ -69,8 +69,8 @@ def signinPage(canvas,switch_to_login):
         520.0,
         anchor="nw",
         text="Enter Your Shop Name",
-        fill="#FFFFFF",
-        font=("Inter Bold", 29 * -1)
+        fill="#000000",
+        font=("Inter",20,"bold")
     )
 
     canvas.create_text(
@@ -78,8 +78,8 @@ def signinPage(canvas,switch_to_login):
         404.0,
         anchor="nw",
         text="Enter Your Username",
-        fill="#FFFFFF",
-        font=("Inter Bold", 29 * -1)
+        fill="#000000",
+        font=("Inter",20,"bold")
     )
 
     canvas.create_text(
@@ -87,8 +87,8 @@ def signinPage(canvas,switch_to_login):
         288.0,
         anchor="nw",
         text="Enter Your Password",
-        fill="#FFFFFF",
-        font=("Inter Bold", 29 * -1)
+        fill="#000000",
+        font=("Inter",20,"bold")
     )
 
     canvas.create_text(
@@ -96,8 +96,8 @@ def signinPage(canvas,switch_to_login):
         172.0,
         anchor="nw",
         text="Enter Your Email",
-        fill="#FFFFFF",
-        font=("Inter Bold", 29 * -1)
+        fill="#000000",
+        font=("Inter",20,"bold")
     )
 
     entry_image_1 = PhotoImage(
@@ -146,15 +146,15 @@ def signinPage(canvas,switch_to_login):
     # Adding View effect in Password Box
 
     val = IntVar()
-    check = Checkbutton(variable=val, onvalue=1, offvalue=0, bg="#0F3ADA", command=lambda: passwordView())
+    check = Checkbutton(variable=val, onvalue=1, offvalue=0, bg="#A5D1E1", command=lambda: passwordView())
     check.place(x=498, y=370, width=10, height=10)
     canvas.create_text(
         510.0,
-        368.0,
+        365.0,
         anchor="nw",
         text="Show Password",
-        fill="#FFFFFF",
-        font=("Inter", 10, "bold")
+        fill="#000000",
+        font=("Inter", 12, "bold")
     )
     def passwordView():
         if (val.get() == 1):
@@ -224,7 +224,7 @@ def signinPage(canvas,switch_to_login):
                 135.0,
                 anchor="nw",
                 text="! Email Already Registered !",
-                fill="#FFFFFF",
+                fill="#000000",
                 font=("Inter", 16, "bold")
             )
         else:
@@ -245,12 +245,11 @@ def signinPage(canvas,switch_to_login):
     # button_image_1 = PhotoImage(
     #     file=relative_to_assets("button_1.png"))
     signButton = Button(
-        text="Sign In",
+        text="Sign Up",
         borderwidth=0,
         highlightthickness=0,
         command=insertUserDetails,
-        bg = "#A5D1E1",
-        font=("Inter", 29, "bold"),
+        font=("Inter", 24, "bold"),
         relief="flat"
     )
 
@@ -262,12 +261,12 @@ def signinPage(canvas,switch_to_login):
     )
 
     canvas.create_text(
-        637.0,
-        62.0,
+        640.0,
+        66.0,
         anchor="nw",
-        text="Sign In",
-        fill="#FFFFFF",
-        font=("Inter Bold", 50 * -1)
+        text="Sign Up",
+        fill="#000000",
+        font=("Inter",36,"bold")
     )
     var = [signButton,signEmailBox,signUserBox,signPassBox,shopnameBox,check]
     def delete(var):

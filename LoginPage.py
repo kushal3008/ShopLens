@@ -21,6 +21,7 @@ def relative_to_assets(path: str) -> Path:
 
 
 def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
+    canvas.configure(bg="#5D6795")
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
     # window = Tk()
@@ -47,7 +48,7 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         67.0,
         1070.0,
         721.0,
-        fill="#0F3ADA",
+        fill="#A5D1E1",
         outline="")
 
     canvas.create_text(
@@ -55,8 +56,8 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         357.0,
         anchor="nw",
         text="Enter Your Password",
-        fill="#FFFFFF",
-        font=("Inter Bold", 29 * -1)
+        fill="#000000",
+        font=("Inter",20,"bold")
     )
 
     canvas.create_text(
@@ -64,8 +65,8 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         247.0,
         anchor="nw",
         text="Enter Your Email",
-        fill="#FFFFFF",
-        font=("Inter Bold", 29 * -1)
+        fill="#000000",
+        font=("Inter",20,"bold")
     )
 
     canvas.create_text(
@@ -73,8 +74,8 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         107.0,
         anchor="nw",
         text="Login",
-        fill="#FFFFFF",
-        font=("Inter Bold", 50 * -1)
+        fill="#000000",
+        font=("Inter",36,"bold")
     )
 
 
@@ -124,15 +125,15 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
     # Adding View effect in Password Box
 
     val = IntVar()
-    check = Checkbutton(variable=val, onvalue=1, offvalue=0, bg="#0F3ADA",command=lambda :passwordView())
+    check = Checkbutton(variable=val, onvalue=1, offvalue=0, bg="#A5D1E1",command=lambda :passwordView())
     check.place(x=498, y=440, width=10, height=10)
     canvas.create_text(
         510.0,
-        438.0,
+        435.0,
         anchor="nw",
         text="Show Password",
-        fill="#FFFFFF",
-        font=("Inter", 10, "bold")
+        fill="#000000",
+        font=("Inter", 12, "bold")
     )
 
     def passwordView():
@@ -157,8 +158,8 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         193.0,
         anchor="nw",
         text="Invalid Email or Password",
-        fill="#FFFFFF",
-        font=("Inter Bold", 24 * -1)
+        fill="#000000",
+        font=("Inter",16,"bold")
     )
             emailBox.delete(0, 'end')
             passwordBox.delete(0, 'end')
@@ -171,9 +172,8 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         borderwidth=0,
         highlightthickness=0,
         command=login,
-        font=("Inter",29,"bold"),
-        relief="flat",
-        bg="#A5D1E1"
+        font=("Inter",24,"bold"),
+        relief="flat"
     )
     loginButton.place(
         x=590.0,
@@ -184,25 +184,36 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
 
     # button_image_2 = PhotoImage(
     #     file=relative_to_assets("button_2.png"))
+
+    forgotPass = Button(
+        text="Forgot Password?",
+        borderwidth=0,
+        highlightthickness=0,
+        font = ("Inter", 12, "bold"),
+        relief = "flat",
+        bg = "#A5D1E1",
+        fg = "#000000"
+    )
+    forgotPass.place(x=801,y=437,width=141,height=19)
+
     signinButton = Button(
         text="Dont have an account? Sign in",
         borderwidth=0,
         highlightthickness=0,
         command=lambda :delete(var),
-        font=("Inter", 20, "bold"),
+        font=("Inter", 16, "bold"),
         relief="flat",
-        bg="#0F3ADA",
-        fg="#FFFFFF",
-        foreground="#FFFFFF"
+        bg="#A5D1E1",
+        fg="#000000"
     )
     signinButton.place(
-        x=495.0,
-        y=468.0,
-        width=450.0,
-        height=50.0
+        x=544.0,
+        y=502.0,
+        width=353.0,
+        height=29.0
     )
     con.close()
-    var = [signinButton,loginButton,emailBox,passwordBox,check]
+    var = [signinButton,loginButton,emailBox,passwordBox,check,forgotPass]
     def delete(var):
         for i in var:
             i.destroy()

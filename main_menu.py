@@ -22,7 +22,7 @@ def relative_to_assets(path: str) -> Path:
 
 def mainScreen(canvas,switch_to_register):
 
-
+    canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
     canvas.create_rectangle(
         0.0,
