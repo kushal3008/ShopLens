@@ -24,7 +24,7 @@ def signinPage(canvas,switch_to_login):
     canvas.configure(bg="#5D6795")
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
-    query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255) Unique, Password varchar(255), ShopName varchar(255));"
+    query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255) Unique, Password varchar(255), ShopName varchar(255),OTP integer);"
     cursor.execute(query)
 
     # Creating UI
@@ -230,6 +230,10 @@ def signinPage(canvas,switch_to_login):
         else:
                 cursor.execute(query1, values)
                 con.commit()
+                cursor.execute(f"select Shopname from user where Email = '{email}';")
+                dataName = cursor.fetchone()
+                sqlite3.connect(f"{shopname}.db")
+                con.commit()
                 cursor.execute(f"select * from User where Email = '{email}';")
                 result = cursor.fetchall()
                 if result:
@@ -237,9 +241,6 @@ def signinPage(canvas,switch_to_login):
                     con.close()
                 else:
                     insertUserDetails()
-
-
-
 
 
     # button_image_1 = PhotoImage(

@@ -3,6 +3,7 @@ from LoginPage import loginPage
 from SignInPage import signinPage
 from main_menu import mainScreen
 from register_update import registerProduct
+from resetPass import resetPassword
 
 def main():
     # Initialize the main Tkinter window
@@ -26,20 +27,24 @@ def main():
     # Function to switch to the login page
     def show_login():
         canvas.delete("all")  # Clear the canvas for the new page
-        loginPage(canvas, show_signin, show_mainmenu)
+        loginPage(canvas, show_signin, show_mainmenu,show_forget)
 
     # Function to switch to the sign-in page
     def show_signin():
         canvas.delete("all")  # Clear the canvas for the new page
         signinPage(canvas, show_login)
 
-    def show_mainmenu():
+    def show_mainmenu(shopname):
         canvas.delete("all")
-        mainScreen(canvas,show_register)
+        mainScreen(canvas,show_register,shopname)
 
     def show_register():
         canvas.delete("all")
         registerProduct(canvas)
+
+    def show_forget():
+        canvas.delete("all")
+        resetPassword(canvas)
 
 
 

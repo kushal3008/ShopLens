@@ -20,8 +20,8 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def mainScreen(canvas,switch_to_register):
-
+def mainScreen(canvas,switch_to_register,shopname):
+    sqlite3.connect(f"{shopname}.db")
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
     canvas.create_rectangle(

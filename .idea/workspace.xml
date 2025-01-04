@@ -7,7 +7,6 @@
     <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Connected Pages Main menu Database left">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LoginPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/LoginPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SignInPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignInPage.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,32 +45,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.LoginPage.executor": "Run",
-    "Python.SignInPage.executor": "Run",
-    "Python.addButton.executor": "Run",
-    "Python.core.executor": "Run",
-    "Python.gui.executor": "Run",
-    "Python.gui1.executor": "Run",
-    "Python.gui2.executor": "Run",
-    "Python.gui3.executor": "Run",
-    "Python.main_menu.executor": "Run",
-    "Python.mainmenu.executor": "Run",
-    "Python.register.executor": "Run",
-    "Python.registerProduct.executor": "Run",
-    "Python.register_update.executor": "Run",
-    "Python.salesGraph.executor": "Run",
-    "Python.try.executor": "Run",
-    "Python.try1.executor": "Run",
-    "Python.try2.executor": "Run",
-    "Python.updatestock.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Kushal/OneDrive/Desktop/ShopLens/core.py",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.LoginPage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignInPage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.addButton.executor&quot;: &quot;Run&quot;,
+    &quot;Python.core.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_menu.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
+    &quot;Python.register.executor&quot;: &quot;Run&quot;,
+    &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
+    &quot;Python.register_update.executor&quot;: &quot;Run&quot;,
+    &quot;Python.salesGraph.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.updatestock.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kushal/OneDrive/Desktop/ShopLens/core.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
@@ -268,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735925837119</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Connected Pages Main menu Database left">
+      <option name="closed" value="true" />
+      <created>1735986940296</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1735986940296</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

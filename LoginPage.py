@@ -7,7 +7,6 @@ from pathlib import Path
 import sqlite3
 import os
 from SignInPage import signinPage
-from main_menu import mainScreen
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
@@ -20,7 +19,8 @@ def relative_to_assets(path: str) -> Path:
 
 
 
-def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
+def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
+    global shopname
     canvas.configure(bg="#5D6795")
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
@@ -144,14 +144,15 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
 
     # Checking Credentials
     def login():
+        global shopname
         email = str(emailBox.get().lower().strip())
         password = str(passwordBox.get().strip())
         con = sqlite3.connect("ShopLens.db")
         cursor = con.cursor()
-        cursor.execute(f"select UserID from User where Email = '{email}' and Password = '{password}'")
+        cursor.execute(f"select Shopname from User where Email = '{email}' and Password = '{password}'")
         data = cursor.fetchone()
         if data:
-            deleteforMain()
+            deleteforMain(data[0])
         else:
             canvas.create_text(
         572.0,
@@ -189,10 +190,11 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
         text="Forgot Password?",
         borderwidth=0,
         highlightthickness=0,
-        font = ("Inter", 12, "bold"),
+        font = ("Inter", 12, "bold","underline"),
         relief = "flat",
         bg = "#A5D1E1",
-        fg = "#000000"
+        fg = "#000000",
+        command=lambda :deleteforReset()
     )
     forgotPass.place(x=801,y=437,width=141,height=19)
 
@@ -219,10 +221,15 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen):
             i.destroy()
         switch_to_signin()
 
-    def deleteforMain():
+    def deleteforMain(shopname):
         for i in var:
             i.destroy()
-        switch_to_mainScreen()
+        switch_to_mainScreen(shopname)
+
+    def deleteforReset():
+        for i in var:
+            i.destroy()
+        switch_to_reset()
 
 
     #window.resizable(False, False)
