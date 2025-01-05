@@ -45,33 +45,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.LoginPage.executor": "Run",
-    "Python.SignInPage.executor": "Run",
-    "Python.addButton.executor": "Run",
-    "Python.core.executor": "Run",
-    "Python.gui.executor": "Run",
-    "Python.gui1.executor": "Run",
-    "Python.gui2.executor": "Run",
-    "Python.gui3.executor": "Run",
-    "Python.main_menu.executor": "Debug",
-    "Python.mainmenu.executor": "Run",
-    "Python.register.executor": "Run",
-    "Python.registerProduct.executor": "Run",
-    "Python.register_update.executor": "Run",
-    "Python.resetPass.executor": "Run",
-    "Python.salesGraph.executor": "Run",
-    "Python.try.executor": "Run",
-    "Python.try1.executor": "Run",
-    "Python.try2.executor": "Run",
-    "Python.updatestock.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Kushal/OneDrive/Desktop/ShopLens/core.py",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.LoginPage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SignInPage.executor&quot;: &quot;Run&quot;,
+    &quot;Python.addButton.executor&quot;: &quot;Run&quot;,
+    &quot;Python.core.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.gui3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main_menu.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
+    &quot;Python.register.executor&quot;: &quot;Run&quot;,
+    &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
+    &quot;Python.register_update.executor&quot;: &quot;Run&quot;,
+    &quot;Python.resetPass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.salesGraph.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.try2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.updatestock.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kushal/OneDrive/Desktop/ShopLens/core.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
@@ -284,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736014936243</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Connected Pages Main menu Database left">
+      <option name="closed" value="true" />
+      <created>1736060644455</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1736060644455</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

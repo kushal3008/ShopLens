@@ -6,12 +6,15 @@ import time
 from pathlib import Path
 import sqlite3
 from tkinter import messagebox
+import tkinter as tk
 from datetime import date
 import os
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Label
 from PIL import Image,ImageTk
+from fontTools.ttx import process
+from matplotlib.pyplot import title
 
 from register import cursor
 
@@ -234,7 +237,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         1200.0,
         275.0,
         anchor="nw",
-        text="Price",
+        text="Amount",
         fill="#FFFFFF",
         font=("Inter Bold", 21 * -1)
     )
@@ -283,7 +286,8 @@ def mainScreen(canvas,switch_to_register,shopname):
         bg="#FFFFFF",
         fg="#000716",
         highlightthickness=0,
-        state="readonly"
+        state="readonly",
+        font=('Inter',20,"bold")
     )
     totalAmount.place(
         x=1220.0,
@@ -332,17 +336,17 @@ def mainScreen(canvas,switch_to_register,shopname):
 
     button_image_3 = PhotoImage(
         file=relative_to_assets("button_3.png"))
-    generateBill = Button(
+    generateButton = Button(
         text="Generate Bill",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        command=lambda: generateBill(),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
         font=("Inter", 20, "bold")
     )
-    generateBill.place(
+    generateButton.place(
         x=620.0,
         y=699.0,
         width=200.0,
@@ -356,7 +360,8 @@ def mainScreen(canvas,switch_to_register,shopname):
         font=('Inter',16,'bold'),
         relief="flat",
         borderwidth=0,
-        highlightthickness=0
+        highlightthickness=0,
+        command=lambda :clear()
     )
 
     clearButton.place(
@@ -373,7 +378,8 @@ def mainScreen(canvas,switch_to_register,shopname):
         font=('Inter', 16, 'bold'),
         relief="flat",
         borderwidth=0,
-        highlightthickness=0
+        highlightthickness=0,
+        command=lambda :addItems()
     )
     addButton.place(
         x=836,
@@ -400,7 +406,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         width=89.25732421875,
         height=37.6552734375
     )
-    var = [registerButton,mostSoldButton,customerBox,emailBox,productBox,quantityBox,generateBill,totalAmount,billArea,checkButton]
+    var = [registerButton,mostSoldButton,customerBox,emailBox,productBox,quantityBox,generateButton,totalAmount,billArea,checkButton]
     def deleteforRegister(var):
         for i in var:
             i.destroy()
@@ -424,22 +430,94 @@ def mainScreen(canvas,switch_to_register,shopname):
         temp = cursor.fetchall()
         if temp:
             canvas.create_text(x=970,y=130,anchor="nw",text="! Email Found !",font=('Inter',12,"bold"))
+            customerBox.configure(state="readonly")
+            emailBox.configure(state="readonly")
         else:
             cursor.execute(f"insert into Customers(Name,Email) values('{customerName}','{email}');")
             con.commit()
             canvas.create_text(x=970, y=130, anchor="nw", text="! Customer Added !", font=('Inter', 12, "bold"))
+            customerBox.configure(state="readonly")
+            emailBox.configure(state="readonly")
 
     # Creating Function to generate bill
     def addItems():
         cursor.execute(f"select Quantity from Products where ProductName = '{productName}';")
         result = cursor.fetchone()
+        srno = 0
         if result:
             if int(result[0]) > 0:
-                pass
+
+                #Adding items
+
+                cursor.execute(f"select Price from Products where ProductName = '{productName}'")
+                data1 = cursor.fetchone()
+                if data1:
+                    pricePerUnit = int(data1[0])
+                else:
+                    pricePerUnit = 0
+                amount = quantity * pricePerUnit
+                cursor.execute("select BillId from buys order by BillId desc limit 1;")
+                data2 = cursor.fetchone()
+                if data2:
+                    billId = int(data2[0]) + 1
+                else:
+                    billId = 1000
+                cursor.execute(f"insert into sales(Item,Quantity,PricePerUnit,Amount,Date,BillId) values('{productName}',{quantity},{pricePerUnit},{amount},{purDate},{billId});")
+
+                # Updating Stock
+
+                stockUpdate = int(result[0]) - quantity
+                cursor.execute(f"update products set quantity = {stockUpdate} where ProductName = '{productName}';")
+
+                cursor.execute(f"select sum(Amount) from sales where BillId = {billId};")
+                data3 = cursor.fetchone()
+                if data3:
+                    billAmount = int(data3[0])
+                else:
+                    billAmount = 0
+                srno += 1
+                items = f"{srno}\t\t\t\t{productName}\t\t\t\t{quantity}\t\t\t\t{pricePerUnit}\t\t\t\t{amount}"
+                billArea.configure(state="normal")
+                billArea.insert(tk.END,items + "\n")
+                billArea.configure(state="disabled")
+                productBox.delete(0,tk.END)
+                quantityBox.delete(0,tk.END)
+
+                totalAmount.configure(state="normal")
+                totalAmount.insert(tk.END,billAmount + "\n")
+                totalAmount.configure(state="readonly")
+
             else:
                 messagebox.showinfo(title="Stock Empty",message=f"{productName.capitalize()} is out of Stock")
         else:
             messagebox.showinfo(title="Error",message=f"{productName.capitalize()} not Registered")
+
+    # Creating function to rollback
+    def clear():
+        con.rollback()
+        billArea.configure(state="normal")
+        billArea.delete(0,tk.END)
+        billArea.configure(state="disabled")
+
+    def generateBill():
+
+        con.commit()
+        cursor.execute(f"select CustomerId from customers where email = '{email}';")
+        result = cursor.fetchone()
+        if result:
+            cusId = int(result[0])
+        else:
+            messagebox.showinfo(title="Error",message="No Customer Found")
+        cursor.execute(f"insert into buys(CustomerId) values({cusId})")
+        con.commit()
+        customerBox.delete(0,tk.END)
+        emailBox.delete(0,tk.END)
+        quantityBox.delete(0,tk.END)
+        productBox.delete(0,tk.END)
+        totalAmount.delete(0,tk.END)
+        customerBox.configure(state="normal")
+        emailBox.configure(state="normal")
+
 
 
 
