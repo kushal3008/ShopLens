@@ -38,9 +38,9 @@ def main():
         canvas.delete("all")
         mainScreen(canvas,show_register,shopname)
 
-    def show_register():
+    def show_register(shopname):
         canvas.delete("all")
-        registerProduct(canvas)
+        registerProduct(canvas,shopname)
 
     def show_forget():
         canvas.delete("all")

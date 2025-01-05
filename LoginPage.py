@@ -152,7 +152,7 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
         cursor.execute(f"select Shopname from User where Email = '{email}' and Password = '{password}'")
         data = cursor.fetchone()
         if data:
-            deleteforMain(data[0])
+            deleteforMain(var,data[0])
         else:
             canvas.create_text(
         572.0,
@@ -194,7 +194,7 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
         relief = "flat",
         bg = "#A5D1E1",
         fg = "#000000",
-        command=lambda :deleteforReset()
+        command=lambda :deleteforReset(var)
     )
     forgotPass.place(x=801,y=437,width=141,height=19)
 
@@ -221,12 +221,12 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
             i.destroy()
         switch_to_signin()
 
-    def deleteforMain(shopname):
+    def deleteforMain(var,shopname):
         for i in var:
             i.destroy()
         switch_to_mainScreen(shopname)
 
-    def deleteforReset():
+    def deleteforReset(var):
         for i in var:
             i.destroy()
         switch_to_reset()

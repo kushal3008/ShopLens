@@ -3,7 +3,11 @@ from pathlib import Path
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+import sqlite3
+from tkinter import messagebox
+import tkinter as tk
 
+from matplotlib.pyplot import title
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame1")
@@ -12,7 +16,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def registerProduct(canvas):
+def registerProduct(canvas,shopname):
 
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
@@ -41,13 +45,13 @@ def registerProduct(canvas):
         fill="#0F3ADA",
         outline="")
 
-    entry_image_1 = PhotoImage(
-        file=relative_to_assets("entry_1.png"))
-    entry_bg_1 = canvas.create_image(
-        441.5,
-        398.5,
-        image=entry_image_1
-    )
+    # entry_image_1 = PhotoImage(
+    #     file=relative_to_assets("entry_1.png"))
+    # entry_bg_1 = canvas.create_image(
+    #     441.5,
+    #     398.5,
+    #     image=entry_image_1
+    # )
     productReg = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -63,13 +67,13 @@ def registerProduct(canvas):
         height=27.0
     )
 
-    entry_image_2 = PhotoImage(
-        file=relative_to_assets("entry_2.png"))
-    entry_bg_2 = canvas.create_image(
-        441.5,
-        504.5,
-        image=entry_image_2
-    )
+    # entry_image_2 = PhotoImage(
+    #     file=relative_to_assets("entry_2.png"))
+    # entry_bg_2 = canvas.create_image(
+    #     441.5,
+    #     504.5,
+    #     image=entry_image_2
+    # )
     quantityReg = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -84,13 +88,13 @@ def registerProduct(canvas):
         height=27.0
     )
 
-    entry_image_3 = PhotoImage(
-        file=relative_to_assets("entry_3.png"))
-    entry_bg_3 = canvas.create_image(
-        441.5,
-        620.5,
-        image=entry_image_3
-    )
+    # entry_image_3 = PhotoImage(
+    #     file=relative_to_assets("entry_3.png"))
+    # entry_bg_3 = canvas.create_image(
+    #     441.5,
+    #     620.5,
+    #     image=entry_image_3
+    # )
     priceReg = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -135,7 +139,7 @@ def registerProduct(canvas):
         text="Register",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        command=lambda: register(),
         relief="flat",
         bg="#A5D1E1",
         font=("Inter", 20, "bold")
@@ -238,7 +242,7 @@ def registerProduct(canvas):
         text="Update",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: update(),
         relief="flat",
         bg="#A5D1E1",
         font=("Inter", 20, "bold")
@@ -259,6 +263,47 @@ def registerProduct(canvas):
         image=image_image_1
     )
     canvas.image = image_image_1
+
+    # Creating function to register Product
+
+    def register():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
+        regProduct = str(productReg.get().lower().strip())
+        regQuantity = int(quantityReg.get())
+        regPrice = int(priceReg.get())
+        cursor.execute(f"select ProductId from products where ProductName = '{regProduct}'; ")
+        data = cursor.fetchone()
+        if data:
+            messagebox.showinfo(title="Product Exists",message=f"{regProduct.capitalize()} is already registered.")
+        else:
+            cursor.execute(f"insert into products(ProductName,Quantity,Price) values('{regProduct}',{regQuantity},{regPrice});")
+            messagebox.showinfo(title="Register",message=f"Registered {regProduct.capitalize()} to database")
+            con.commit()
+        productReg.delete(0,tk.END)
+        quantityReg.delete(0,tk.END)
+        priceReg.delete(0,tk.END)
+        con.close()
+
+    # Creating function to update stock into database
+
+    def update():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
+        updProduct = str(productUpd.get().lower().strip())
+        updQuantity = int(quantityUpd.get())
+        cursor.execute(f"select Quantity from Products where ProductName = '{updProduct}';")
+        data = cursor.fetchone()
+        if data:
+            finalQuantity = int(data[0]) + updQuantity
+            cursor.execute(f"update products set Quantity = {finalQuantity} where ProductName = '{updProduct}'")
+            con.commit()
+            messagebox.showinfo(title="Stock Updated",message=f"Updated Stock of {updProduct.capitalize()} to {finalQuantity}")
+            con.close()
+        else:
+            messagebox.showinfo(title="Error",message=f"Product {updProduct.capitalize()} is not registered")
+
+
 
 if __name__  == "__main__":
     registerProduct(canvas)

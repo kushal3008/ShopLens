@@ -8,7 +8,14 @@ import sqlite3
 from tkinter import messagebox
 import tkinter as tk
 from datetime import date
+from fpdf import FPDF
+import smtplib
+import ssl
 import os
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+from dotenv import load_dotenv
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Label
@@ -39,8 +46,6 @@ def mainScreen(canvas,switch_to_register,shopname):
     cursor.execute(salesTable)
     cursor.execute(buysTable)
     cursor.execute(productTable)
-    con.commit()
-    con.close()
 
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
@@ -174,7 +179,7 @@ def mainScreen(canvas,switch_to_register,shopname):
 
     canvas.create_rectangle(
         1030.0,
-        696.0,
+        699.0,
         1385.0,
         746.0,
         fill="#0F3ADA",
@@ -291,7 +296,7 @@ def mainScreen(canvas,switch_to_register,shopname):
     )
     totalAmount.place(
         x=1220.0,
-        y=696.0,
+        y=699.0,
         width=165.0,
         height=50.0
     )
@@ -302,7 +307,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         text="Register & Update",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda :deleteforRegister(var),
+        command=lambda :deleteforRegister(var,shopname),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
@@ -355,9 +360,9 @@ def mainScreen(canvas,switch_to_register,shopname):
 
     clearButton = Button(
         text="Clear Bill",
-        bg="0F3ADA",
+        bg="#0F3ADA",
         fg="#FFFFFF",
-        font=('Inter',16,'bold'),
+        font=('Inter',20,'bold'),
         relief="flat",
         borderwidth=0,
         highlightthickness=0,
@@ -373,7 +378,7 @@ def mainScreen(canvas,switch_to_register,shopname):
 
     addButton = Button(
         text="Add",
-        bg="0F3ADA",
+        bg="#0F3ADA",
         fg="#FFFFFF",
         font=('Inter', 16, 'bold'),
         relief="flat",
@@ -394,7 +399,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         text="Check",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4 clicked"),
+        command=lambda: addCustomer(),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
@@ -406,41 +411,50 @@ def mainScreen(canvas,switch_to_register,shopname):
         width=89.25732421875,
         height=37.6552734375
     )
-    var = [registerButton,mostSoldButton,customerBox,emailBox,productBox,quantityBox,generateButton,totalAmount,billArea,checkButton]
-    def deleteforRegister(var):
+    var = [registerButton, mostSoldButton, customerBox, emailBox, productBox, quantityBox, generateButton, totalAmount,
+           billArea, checkButton,clearButton,addButton]
+    def deleteforRegister(var,shopname):
         for i in var:
             i.destroy()
-        switch_to_register()
+        switch_to_register(shopname)
 
     # window.resizable(False, False)
     # window.mainloop()
 
-    # Collecting data
-
-    customerName = customerBox.get().lower().strip()
-    email = emailBox.get().lower().strip()
-    productName = productBox.get().lower().strip()
-    quantity = quantityBox.get()
-    purDate = date.today()
-
     #Creating function to either add customer details
 
     def addCustomer():
+
+        # Collecting data
+
+        customerName = str(customerBox.get().lower().strip())
+        email = str(emailBox.get().lower().strip())
+        productName = str(productBox.get().lower().strip())
+        quantity = quantityBox.get()
+        purDate = date.today()
+
         cursor.execute(f"select CustomerId from Customers where Email = '{email}'")
         temp = cursor.fetchall()
         if temp:
-            canvas.create_text(x=970,y=130,anchor="nw",text="! Email Found !",font=('Inter',12,"bold"))
+            canvas.create_text(970,130,text="! Email Found !",font=('Inter',12,"bold"))
             customerBox.configure(state="readonly")
             emailBox.configure(state="readonly")
         else:
+            customerBox.configure(state="normal")
+            emailBox.configure(state="normal")
             cursor.execute(f"insert into Customers(Name,Email) values('{customerName}','{email}');")
             con.commit()
-            canvas.create_text(x=970, y=130, anchor="nw", text="! Customer Added !", font=('Inter', 12, "bold"))
+            canvas.create_text(970, 130, text="! Customer Added !", font=('Inter', 12, "bold"))
             customerBox.configure(state="readonly")
             emailBox.configure(state="readonly")
 
     # Creating Function to generate bill
     def addItems():
+        customerName = str(customerBox.get().lower().strip())
+        email = str(emailBox.get().lower().strip())
+        productName = str(productBox.get().lower().strip())
+        quantity = int(quantityBox.get())
+        purDate = date.today()
         cursor.execute(f"select Quantity from Products where ProductName = '{productName}';")
         result = cursor.fetchone()
         srno = 0
@@ -476,7 +490,7 @@ def mainScreen(canvas,switch_to_register,shopname):
                 else:
                     billAmount = 0
                 srno += 1
-                items = f"{srno}\t\t\t\t{productName}\t\t\t\t{quantity}\t\t\t\t{pricePerUnit}\t\t\t\t{amount}"
+                items = f"{srno}\t\t\t{productName}\t\t\t{quantity}\t\t\t{pricePerUnit}\t\t\t{amount}"
                 billArea.configure(state="normal")
                 billArea.insert(tk.END,items + "\n")
                 billArea.configure(state="disabled")
@@ -484,7 +498,7 @@ def mainScreen(canvas,switch_to_register,shopname):
                 quantityBox.delete(0,tk.END)
 
                 totalAmount.configure(state="normal")
-                totalAmount.insert(tk.END,billAmount + "\n")
+                totalAmount.insert(tk.END,billAmount)
                 totalAmount.configure(state="readonly")
 
             else:
@@ -492,16 +506,21 @@ def mainScreen(canvas,switch_to_register,shopname):
         else:
             messagebox.showinfo(title="Error",message=f"{productName.capitalize()} not Registered")
 
+
     # Creating function to rollback
+
     def clear():
         con.rollback()
         billArea.configure(state="normal")
-        billArea.delete(0,tk.END)
+        billArea.delete(1.0,tk.END)
         billArea.configure(state="disabled")
+        totalAmount.configure(state="normal")
+        totalAmount.delete(0,tk.END)
+        totalAmount.configure(state="readonly")
 
     def generateBill():
-
         con.commit()
+        email = str(emailBox.get().lower().strip())
         cursor.execute(f"select CustomerId from customers where email = '{email}';")
         result = cursor.fetchone()
         if result:
@@ -510,13 +529,140 @@ def mainScreen(canvas,switch_to_register,shopname):
             messagebox.showinfo(title="Error",message="No Customer Found")
         cursor.execute(f"insert into buys(CustomerId) values({cusId})")
         con.commit()
+        customerBox.configure(state="normal")
+        emailBox.configure(state="normal")
+        billArea.configure(state="normal")
+        emailBox.configure(state="normal")
         customerBox.delete(0,tk.END)
         emailBox.delete(0,tk.END)
         quantityBox.delete(0,tk.END)
         productBox.delete(0,tk.END)
         totalAmount.delete(0,tk.END)
+        billArea.delete(1.0,tk.END)
         customerBox.configure(state="normal")
         emailBox.configure(state="normal")
+        cursor.execute(f"select BillId from buys order by BillId desc limit 1;")
+        data1 = cursor.fetchone()
+        if data1:
+            billID = int(data1[0])
+        else:
+            billID = 1000
+        path, email = generatePDF(billID)
+        send_email_with_pdf(path, email)
+        con.close()
+
+    # Creating function to generate bill in form of PDFs
+
+    def generatePDF(BillId):
+        pdf = FPDF(orientation='P', unit='mm', format='A4')
+        pdf.add_page()
+
+        # Add Invoice Number
+        pdf.set_font(family="Times", style="B", size=32)
+        pdf.cell(w=185, h=16, txt="ShopLens", ln=1, align="C")
+
+        # Add Invoice Number
+        pdf.set_font(family="Times", style="B", size=16)
+        pdf.cell(w=50, h=8, txt=f"BillID: BID{BillId}", ln=1)
+
+        # Fetch and add Date
+        query = f"SELECT Date FROM sales WHERE BillId={BillId} GROUP BY Date;"
+        cursor.execute(query)
+        date = cursor.fetchall()
+        pdf.set_font(family="Times", style="B", size=16)
+        pdf.cell(w=50, h=8, txt=f"Date : {date[0]}", ln=1)
+
+        # Fetch and add Customer Name and Email
+        query = f"""
+        SELECT c.Name, c.Email 
+        FROM customers AS c 
+        INNER JOIN buys AS b ON c.CustomerId = b.CustomerId 
+        WHERE b.BillId={BillId};
+        """
+        cursor.execute(query)
+        name, email = cursor.fetchone()
+        pdf.set_font(family="Times", style="B", size=16)
+        pdf.cell(w=50, h=8, txt=f"Name : {str(name).capitalize()}", ln=1)
+        pdf.cell(w=50, h=8, txt=f"Email : {email}", ln=1)
+
+        # Add table headers
+        columns = ["Item", "Quantity", "Price per Unit", "Amount"]
+        pdf.ln(20)
+        pdf.set_font(family="Times", style="B", size=12)
+        pdf.cell(w=15, h=8, txt="", border=0, align="C")
+        pdf.cell(w=50, h=8, txt=columns[0], border=1, align="C")
+        pdf.cell(w=30, h=8, txt=columns[1], border=1, align="C")
+        pdf.cell(w=50, h=8, txt=columns[2], border=1, align="C")
+        pdf.cell(w=30, h=8, txt=columns[3], border=1, align="C", ln=1)
+
+        # Fetch and add sales data
+        query = f"""
+        SELECT s.Item, s.Quantity, s.PricePerUnit, s.Amount 
+        FROM sales AS s 
+        WHERE s.BillId={BillId};
+        """
+        cursor.execute(query)
+        total_sum = 0
+        for row in cursor.fetchall():
+            pdf.set_font(family="Times", size=10, style="B")
+            pdf.cell(w=15, h=8, txt="", border=0, align="C")
+            pdf.cell(w=50, h=8, txt=str(row[0]).capitalize(), border=1, align="C")
+            pdf.set_font(family="Times", size=10)
+            pdf.cell(w=30, h=8, txt=str(row[1]), border=1, align="C")
+            pdf.cell(w=50, h=8, txt=str(row[2]), border=1, align="C")
+            pdf.cell(w=30, h=8, txt=str(row[3]), border=1, align="C", ln=1)
+            total_sum += row[3]
+
+        # Add total row
+        pdf.set_font(family="Times", style="B", size=12)
+        pdf.cell(w=15, h=8, txt="", border=0, align="C")
+        pdf.cell(w=50, h=8, txt="Total", border=1, align="C")
+        pdf.cell(w=30, h=8, txt="-", border=1, align="C")
+        pdf.cell(w=50, h=8, txt="-", border=1, align="C")
+        pdf.cell(w=30, h=8, txt=str(total_sum), border=1, align="C", ln=1)
+
+        # Save the PDF
+        path = f"./PDFs/{BillId}.pdf"
+        pdf.output(path)
+        print("PDF generated successfully!")
+        cursor.close()
+        con.close()
+        return (path,email)
+
+    #Sending Email to the customer
+
+    def send_email_with_pdf(pdf_path,receiver):
+        subject = "Subject: Your Shopping Bill"
+        body = "Thanks for purchase."
+        host = "smtp.gmail.com"
+        port = 465
+        user_name = "kushal.om30@gmail.com"  # Email address
+        password = "evju lcnd zmwl wdow"  # App password
+
+        context = ssl.create_default_context()
+
+        # Create the email message
+        msg = MIMEMultipart()
+        msg['From'] = user_name
+        msg['To'] = receiver
+        msg['Subject'] = subject
+
+        # Attach the body of the email
+        msg.attach(MIMEText(body, 'plain'))
+
+        # Attach the PDF file
+        with open(pdf_path, 'rb') as file:
+            attach_part = MIMEApplication(file.read(), _subtype="pdf")
+            attach_part.add_header('Content-Disposition', 'attachment', filename=os.path.basename(pdf_path))
+            msg.attach(attach_part)
+
+        try:
+            with smtplib.SMTP_SSL(host, port, context=context) as server:
+                server.login(user_name, password)
+                server.sendmail(user_name, receiver, msg.as_string())
+            print("Email with PDF sent successfully!")
+        except Exception as e:
+            print(f"Failed to send email: {e}")
 
 
 
@@ -536,6 +682,7 @@ if __name__ == "__main__":
         highlightthickness=0,
         relief="ridge"
     )
+    con.close()
     mainScreen(canvas)
     window.resizable(False,False)
     window.mainloop()
