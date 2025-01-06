@@ -42,9 +42,9 @@ def main():
         canvas.delete("all")
         registerProduct(canvas,shopname)
 
-    def show_forget():
+    def show_forget(email):
         canvas.delete("all")
-        resetPassword(canvas)
+        resetPassword(canvas,email)
 
 
 

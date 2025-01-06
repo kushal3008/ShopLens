@@ -6,10 +6,13 @@
 from pathlib import Path
 import sqlite3
 import os
+from tkinter import messagebox
 from SignInPage import signinPage
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
+
+from try2 import cursor
 
 ASSETS_PATH = os.path.join("C:/Users/Kushal/OneDrive/Desktop/ShopLens/build/assets/frame3")
 
@@ -22,8 +25,6 @@ def relative_to_assets(path: str) -> Path:
 def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
     global shopname
     canvas.configure(bg="#5D6795")
-    con = sqlite3.connect("ShopLens.db")
-    cursor = con.cursor()
     # window = Tk()
     #
     # window.geometry("1440x788")
@@ -214,7 +215,6 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
         width=353.0,
         height=29.0
     )
-    con.close()
     var = [signinButton,loginButton,emailBox,passwordBox,check,forgotPass]
     def delete(var):
         for i in var:
@@ -227,9 +227,16 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
         switch_to_mainScreen(shopname)
 
     def deleteforReset(var):
-        for i in var:
-            i.destroy()
-        switch_to_reset()
+        con = sqlite3.connect("ShopLens.db")
+        cursor = con.cursor()
+        email = str(emailBox.get().lower().strip())
+        if email == "":
+            messagebox.showerror(title="Error",message="Enter Email First")
+        else:
+            for i in var:
+                i.destroy()
+            switch_to_reset(email)
+        con.close()
 
 
     #window.resizable(False, False)

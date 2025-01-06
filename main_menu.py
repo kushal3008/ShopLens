@@ -39,7 +39,7 @@ def mainScreen(canvas,switch_to_register,shopname):
     con = sqlite3.connect(f"{shopname}.db")
     cursor = con.cursor()
     customerTable = "create table if not exists Customers(CustomerId integer PRIMARY KEY AUTOINCREMENT,Name varchar(255),Email varchar(255) UNIQUE);"
-    salesTable = "create table if not exists Sales(SalesId integer PRIMARY KEY AUTOINCREMENT, BillId integer, Item varchar(255), Quantity integer, PricePerUnit integer, Amount Integer, Date date);"
+    salesTable = "create table if not exists Sales(SalesId integer PRIMARY KEY AUTOINCREMENT, BillId integer, Item varchar(255), Quantity integer, PricePerUnit integer, Amount Integer, Date varchar(255));"
     buysTable = "create table if not exists Buys(BillId integer PRIMARY KEY AUTOINCREMENT, CustomerId integer);"
     productTable = "create table if not exists Products(ProductId integer PRIMARY KEY AUTOINCREMENT, ProductName varchar(255), Quantity integer, Price integer);"
     cursor.execute(customerTable)
@@ -203,7 +203,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         outline="")
 
     canvas.create_text(
-        10.0,
+        80.0,
         275.0,
         anchor="nw",
         text="Sr.No",
@@ -212,7 +212,7 @@ def mainScreen(canvas,switch_to_register,shopname):
     )
 
     canvas.create_text(
-        582.0,
+        647.0,
         275.0,
         anchor="nw",
         text="Quantity",
@@ -221,7 +221,7 @@ def mainScreen(canvas,switch_to_register,shopname):
     )
 
     canvas.create_text(
-        866.0,
+        916.0,
         275.0,
         anchor="nw",
         text="Price Per Unit",
@@ -230,7 +230,7 @@ def mainScreen(canvas,switch_to_register,shopname):
     )
 
     canvas.create_text(
-        229.0,
+        359.0,
         275.0,
         anchor="nw",
         text="Product Name",
@@ -239,7 +239,7 @@ def mainScreen(canvas,switch_to_register,shopname):
     )
 
     canvas.create_text(
-        1200.0,
+        1233.0,
         275.0,
         anchor="nw",
         text="Amount",
@@ -431,7 +431,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         email = str(emailBox.get().lower().strip())
         productName = str(productBox.get().lower().strip())
         quantity = quantityBox.get()
-        purDate = date.today()
+        purDate = str(date.today())
 
         cursor.execute(f"select CustomerId from Customers where Email = '{email}'")
         temp = cursor.fetchall()
@@ -450,14 +450,14 @@ def mainScreen(canvas,switch_to_register,shopname):
 
     # Creating Function to generate bill
     def addItems():
+        srno = 0
         customerName = str(customerBox.get().lower().strip())
         email = str(emailBox.get().lower().strip())
         productName = str(productBox.get().lower().strip())
         quantity = int(quantityBox.get())
-        purDate = date.today()
+        purDate = str(date.today())
         cursor.execute(f"select Quantity from Products where ProductName = '{productName}';")
         result = cursor.fetchone()
-        srno = 0
         if result:
             if int(result[0]) > 0:
 
@@ -476,7 +476,7 @@ def mainScreen(canvas,switch_to_register,shopname):
                     billId = int(data2[0]) + 1
                 else:
                     billId = 1000
-                cursor.execute(f"insert into sales(Item,Quantity,PricePerUnit,Amount,Date,BillId) values('{productName}',{quantity},{pricePerUnit},{amount},{purDate},{billId});")
+                cursor.execute(f"insert into sales(Item,Quantity,PricePerUnit,Amount,Date,BillId) values('{productName}',{quantity},{pricePerUnit},{amount},'{purDate}',{billId});")
 
                 # Updating Stock
 
@@ -490,7 +490,7 @@ def mainScreen(canvas,switch_to_register,shopname):
                 else:
                     billAmount = 0
                 srno += 1
-                items = f"{srno}\t\t\t{productName}\t\t\t{quantity}\t\t\t{pricePerUnit}\t\t\t{amount}"
+                items = f"\t{srno}\t\t\t{productName}\t\t\t{quantity}\t\t\t{pricePerUnit}\t\t\t{amount}"
                 billArea.configure(state="normal")
                 billArea.insert(tk.END,items + "\n")
                 billArea.configure(state="disabled")
@@ -498,6 +498,7 @@ def mainScreen(canvas,switch_to_register,shopname):
                 quantityBox.delete(0,tk.END)
 
                 totalAmount.configure(state="normal")
+                totalAmount.delete(0,tk.END)
                 totalAmount.insert(tk.END,billAmount)
                 totalAmount.configure(state="readonly")
 
@@ -537,7 +538,9 @@ def mainScreen(canvas,switch_to_register,shopname):
         emailBox.delete(0,tk.END)
         quantityBox.delete(0,tk.END)
         productBox.delete(0,tk.END)
+        totalAmount.configure(state="normal")
         totalAmount.delete(0,tk.END)
+        totalAmount.configure(state="readonly")
         billArea.delete(1.0,tk.END)
         customerBox.configure(state="normal")
         emailBox.configure(state="normal")
@@ -570,7 +573,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         cursor.execute(query)
         date = cursor.fetchall()
         pdf.set_font(family="Times", style="B", size=16)
-        pdf.cell(w=50, h=8, txt=f"Date : {date[0]}", ln=1)
+        pdf.cell(w=50, h=8, txt=f"Date : {date[0][0]}", ln=1)
 
         # Fetch and add Customer Name and Email
         query = f"""
