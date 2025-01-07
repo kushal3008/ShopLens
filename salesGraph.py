@@ -7,11 +7,12 @@ from matplotlib.pyplot import connect, title
 
 db = mysql.connector.connect(host="localhost", user="root", passwd="Kushal3008@", database="ShopLens")
 cursor = db.cursor()
-
 def viewGraph():
     query = "select Item as Product, Sum(Quantity) as TotalQuantity from sales group by Item"
     cursor.execute(query)
     data =cursor.fetchall()
+    window2 = tk.Tk()
+    window2.geometry("800x800")
     if data:
         products = [row[0] for row in data]
         quantities = [row[1] for row in data]
@@ -21,13 +22,14 @@ def viewGraph():
         plt.ylabel("Quantity Sold", fontsize=12)
         plt.title("Most Sold Product", fontsize=16)
         plt.xticks(rotation=45, ha='right')
-        plt.tight_layout
-        image = plt.show()
+        plt.tight_layout()
+        plt.savefig("graph.png")
     else:
-        templabel = Label(text="!!!No Sale Data Available!!!")
-
-    salesImage = tk.Label(image=image)
-    salesImage.grid(row=0,column=0)
+        templabel = Label(window2,text="!!!No Sale Data Available!!!")
+    image1 = Image.open("graph.png")
+    photo = ImageTk.PhotoImage(image1)
+    salesImage = tk.Label(image=photo)
+    salesImage.pack()
     cursor.close()
     db.close()
-
+    window2.mainloop()

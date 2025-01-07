@@ -4,6 +4,7 @@ from SignInPage import signinPage
 from main_menu import mainScreen
 from register_update import registerProduct
 from resetPass import resetPassword
+from mostSold import mostSoldGraph
 
 def main():
     # Initialize the main Tkinter window
@@ -36,7 +37,7 @@ def main():
 
     def show_mainmenu(shopname):
         canvas.delete("all")
-        mainScreen(canvas,show_register,shopname)
+        mainScreen(canvas,show_register,shopname,show_mostSold)
 
     def show_register(shopname):
         canvas.delete("all")
@@ -45,6 +46,11 @@ def main():
     def show_forget(email):
         canvas.delete("all")
         resetPassword(canvas,email,show_login)
+
+    def show_mostSold(shopname):
+        canvas.delete("all")
+        mostSoldGraph(canvas,shopname,show_mainmenu)
+
 
 
 

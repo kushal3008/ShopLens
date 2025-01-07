@@ -32,7 +32,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def mainScreen(canvas,switch_to_register,shopname):
+def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
 
     # Creating Table for a store
 
@@ -272,8 +272,8 @@ def mainScreen(canvas,switch_to_register,shopname):
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
-        1296.0,
-        166.0,
+        1404.0,
+        35.0,
         image=image_image_1
     )
     canvas.image = image_image_1
@@ -326,7 +326,7 @@ def mainScreen(canvas,switch_to_register,shopname):
         text="Most Sold Product",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        command=lambda: deleteforMostSold(var),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
@@ -666,6 +666,12 @@ def mainScreen(canvas,switch_to_register,shopname):
             print("Email with PDF sent successfully!")
         except Exception as e:
             print(f"Failed to send email: {e}")
+
+    def deleteforMostSold(var):
+        for i in var:
+            i.destroy()
+        switch_to_mostsold(shopname)
+
 
 
 

@@ -258,8 +258,8 @@ def registerProduct(canvas,shopname,switch_to_main):
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
-        721.0,
-        170.0,
+        1404.0,
+        35.0,
         image=image_image_1
     )
     canvas.image = image_image_1
