@@ -40,11 +40,11 @@ def main():
 
     def show_register(shopname):
         canvas.delete("all")
-        registerProduct(canvas,shopname)
+        registerProduct(canvas,shopname,show_mainmenu)
 
     def show_forget(email):
         canvas.delete("all")
-        resetPassword(canvas,email)
+        resetPassword(canvas,email,show_login)
 
 
 

@@ -5,7 +5,8 @@ import sqlite3
 
 from pathlib import Path
 import random
-from tkinter import messagebox
+import time
+from tkinter import messagebox, Label
 from sendOtp import send_email
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -20,7 +21,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\Kushal\OneDrive\Desktop\ShopLens\bui
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def resetPassword(canvas,email):
+def resetPassword(canvas,email,switch_to_login):
     def otpGenerate(email):
         otp = ""
         for i in range(6):
@@ -65,14 +66,8 @@ def resetPassword(canvas,email):
         font=("Inter",20,"bold")
     )
 
-    canvas.create_text(
-        532.0,
-        172.0,
-        anchor="nw",
-        text=f"OTP has been send to {email}",
-        fill="#000000",
-        font=("Inter",12,"bold")
-    )
+    label1 = Label(text=f"OTP has been send to {email}",font=('Inter',12,'bold'),bg="#A5D1E1")
+    label1.place(x=532,y=172)
 
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))
@@ -162,7 +157,7 @@ def resetPassword(canvas,email):
     )
 
 
-
+    var = [confirmButton,reEnterBox,newBox,otpBox,label1]
     def reset():
         con = sqlite3.connect("ShopLens.db")
         cursor = con.cursor()
@@ -173,6 +168,10 @@ def resetPassword(canvas,email):
             if newPass == reEnterPass:
                 cursor.execute(f"UPDATE user set Password = '{newPass}' where email = '{email}'")
                 con.commit()
+                for i in var:
+                    i.destroy()
+                switch_to_login()
+                messagebox.showinfo(title="Password Changed",message="Password has been changed")
             else:
                 messagebox.showerror(title="Error",message="Passwords do not match")
         else:

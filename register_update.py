@@ -16,7 +16,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def registerProduct(canvas,shopname):
+def registerProduct(canvas,shopname,switch_to_main):
 
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
@@ -264,6 +264,11 @@ def registerProduct(canvas,shopname):
     )
     canvas.image = image_image_1
 
+    homeButton = Button(text="Home",bg="#0F3ADA",fg="#FFFFFF",font=('Inter',20,'bold'),borderwidth=0,
+        highlightthickness=0,command=lambda :homepage(var,shopname,switch_to_main))
+    homeButton.place(x=0,y=13,width=114,height=40)
+    var = [updateButton,regButton,productReg,productUpd,priceReg,quantityReg,quantityUpd,homeButton]
+
     # Creating function to register Product
 
     def register():
@@ -302,7 +307,10 @@ def registerProduct(canvas,shopname):
             con.close()
         else:
             messagebox.showinfo(title="Error",message=f"Product {updProduct.capitalize()} is not registered")
-
+    def homepage(var,shopname,switch_to_main):
+        for i in var:
+            i.destroy()
+        switch_to_main(shopname)
 
 
 if __name__  == "__main__":
