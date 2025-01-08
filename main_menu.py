@@ -32,7 +32,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
+def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_daterange):
 
     # Creating Table for a store
 
@@ -46,6 +46,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
     cursor.execute(salesTable)
     cursor.execute(buysTable)
     cursor.execute(productTable)
+    con.close()
 
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
@@ -118,7 +119,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
     productBox = Entry(
         bd=0,
         bg="#FFFFFF",
-        fg="#000716",
+        fg="#000000",
         highlightthickness=0,
         font=('Arial', 16)
     )
@@ -307,7 +308,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
         text="Register & Update",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda :deleteforRegister(var,shopname),
+        command=lambda :deleteforRegister(),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
@@ -320,22 +321,30 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
         height=50.0
     )
 
+    def deleteforRegister():
+        var = [registerButton, salesButton, customerBox, emailBox, productBox, quantityBox, generateButton,
+               totalAmount,dateRangeButton,
+               billArea, checkButton, clearButton, addButton]
+        for i in var:
+            i.destroy()
+        switch_to_register(shopname)
+
     button_image_2 = PhotoImage(
         file=relative_to_assets("button_2.png"))
-    mostSoldButton = Button(
-        text="Most Sold Product",
+    salesButton = Button(
+        text="Sales Graph",
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: deleteforMostSold(var),
+        command=lambda: deleteforMostSold(),
         relief="flat",
         bg="#0F3ADA",
         fg="#FFFFFF",
         font=("Inter", 20, "bold")
     )
-    mostSoldButton.place(
-        x=316.0,
+    salesButton.place(
+        x=300.0,
         y=10.0,
-        width=266.0,
+        width=216.0,
         height=50.0
     )
 
@@ -411,12 +420,31 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
         width=89.25732421875,
         height=37.6552734375
     )
-    var = [registerButton, mostSoldButton, customerBox, emailBox, productBox, quantityBox, generateButton, totalAmount,
-           billArea, checkButton,clearButton,addButton]
-    def deleteforRegister(var,shopname):
+    def deleteforDateRange():
+        var = [registerButton, salesButton, customerBox, emailBox, productBox, quantityBox, generateButton,
+               totalAmount, dateRangeButton,
+               billArea, checkButton, clearButton, addButton]
         for i in var:
             i.destroy()
-        switch_to_register(shopname)
+        switch_to_daterange(shopname)
+
+    dateRangeButton = Button(
+        text="Date Range",
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: deleteforDateRange(),
+        relief="flat",
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
+    dateRangeButton.place(
+        x=525.0,
+        y=10.0,
+        width=216.0,
+        height=50.0
+    )
+
 
     # window.resizable(False, False)
     # window.mainloop()
@@ -426,7 +454,8 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
     def addCustomer():
 
         # Collecting data
-
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
         customerName = str(customerBox.get().lower().strip())
         email = str(emailBox.get().lower().strip())
         productName = str(productBox.get().lower().strip())
@@ -436,7 +465,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
         cursor.execute(f"select CustomerId from Customers where Email = '{email}'")
         temp = cursor.fetchall()
         if temp:
-            canvas.create_text(970,130,text="! Email Found !",font=('Inter',12,"bold"))
             customerBox.configure(state="readonly")
             emailBox.configure(state="readonly")
         else:
@@ -444,12 +472,14 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
             emailBox.configure(state="normal")
             cursor.execute(f"insert into Customers(Name,Email) values('{customerName}','{email}');")
             con.commit()
-            canvas.create_text(970, 130, text="! Customer Added !", font=('Inter', 12, "bold"))
             customerBox.configure(state="readonly")
             emailBox.configure(state="readonly")
+        con.close()
 
     # Creating Function to generate bill
     def addItems():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
         srno = 0
         customerName = str(customerBox.get().lower().strip())
         email = str(emailBox.get().lower().strip())
@@ -506,11 +536,14 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
                 messagebox.showinfo(title="Stock Empty",message=f"{productName.capitalize()} is out of Stock")
         else:
             messagebox.showinfo(title="Error",message=f"{productName.capitalize()} not Registered")
+        con.close()
 
 
     # Creating function to rollback
 
     def clear():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
         con.rollback()
         billArea.configure(state="normal")
         billArea.delete(1.0,tk.END)
@@ -518,8 +551,11 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
         totalAmount.configure(state="normal")
         totalAmount.delete(0,tk.END)
         totalAmount.configure(state="readonly")
+        con.close()
 
     def generateBill():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
         con.commit()
         email = str(emailBox.get().lower().strip())
         cursor.execute(f"select CustomerId from customers where email = '{email}';")
@@ -557,6 +593,8 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
     # Creating function to generate bill in form of PDFs
 
     def generatePDF(BillId):
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
         pdf = FPDF(orientation='P', unit='mm', format='A4')
         pdf.add_page()
 
@@ -667,10 +705,14 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold):
         except Exception as e:
             print(f"Failed to send email: {e}")
 
-    def deleteforMostSold(var):
+    def deleteforMostSold():
+        var = [registerButton, salesButton, customerBox, emailBox, productBox, quantityBox, generateButton,
+               totalAmount,dateRangeButton,
+               billArea, checkButton, clearButton, addButton]
         for i in var:
             i.destroy()
         switch_to_mostsold(shopname)
+
 
 
 

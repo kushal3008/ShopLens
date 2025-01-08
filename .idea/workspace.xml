@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="BillId need to be set to 1000 using try2 file and otp should redirect to login page" />
+    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="BillId need to be set to 1000 using try2 file and otp should redirect to login page">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mostSold.py" beforeDir="false" afterPath="$PROJECT_DIR$/mostSold.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +58,7 @@
     &quot;Python.gui3.executor&quot;: &quot;Run&quot;,
     &quot;Python.main_menu.executor&quot;: &quot;Debug&quot;,
     &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mostSold.executor&quot;: &quot;Run&quot;,
     &quot;Python.register.executor&quot;: &quot;Run&quot;,
     &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
     &quot;Python.register_update.executor&quot;: &quot;Run&quot;,
@@ -322,7 +327,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736242475103</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="BillId need to be set to 1000 using try2 file and otp should redirect to login page">
+      <option name="closed" value="true" />
+      <created>1736269990620</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1736269990620</updated>
+    </task>
+    <task id="LOCAL-00027" summary="BillId need to be set to 1000 using try2 file and otp should redirect to login page">
+      <option name="closed" value="true" />
+      <created>1736271322929</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1736271322929</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

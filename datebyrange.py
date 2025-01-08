@@ -13,13 +13,13 @@ from PIL import Image,ImageTk
 from try2 import cursor
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\Kushal\OneDrive\Desktop\ShopLens\build\assets\mostSold")
+ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\Kushal\OneDrive\Desktop\ShopLens\build\assets\dateRange")
 
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def mostSoldGraph(canvas,shopname,switch_to_mainmenu):
+def dateRange(canvas,shopname,switch_to_mainmenu):
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
     canvas.create_rectangle(
@@ -31,10 +31,10 @@ def mostSoldGraph(canvas,shopname,switch_to_mainmenu):
         outline="")
 
     canvas.create_text(
-        608.0,
+        585.0,
         10.0,
         anchor="nw",
-        text="Sales Graph",
+        text="Date By Range",
         fill="#FFFFFF",
         font=('Inter', 34,'bold')
     )
@@ -47,9 +47,54 @@ def mostSoldGraph(canvas,shopname,switch_to_mainmenu):
         fill="#0F3ADA",
         outline="")
 
+    canvas.create_text(
+        57.0,
+        129.0,
+        anchor="nw",
+        text="Start Date",
+        fill="#000000",
+        font=('Inter', 16, 'bold')
+    )
+
+    canvas.create_text(
+            57.0,
+            219.0,
+            anchor="nw",
+            text="End Date",
+            fill="#000000",
+            font=('Inter', 16, 'bold')
+        )
+
     homeButton = Button(text="Home", bg="#0F3ADA", fg="#FFFFFF", font=('Inter', 20, 'bold'), borderwidth=0,
                         highlightthickness=0,command=lambda :deleteforMainmenu())
     homeButton.place(x=0, y=13, width=114, height=40)
+
+    startDate = Entry(
+        bd=0,
+        bg="#FFFFFF",
+        fg="#000000",
+        highlightthickness=0,
+        font=('Arial', 16)
+    )
+    startDate.place(
+        x=143.5,
+        y=169.5,
+        width=173.0,
+        height=27.0
+    )
+    endDate = Entry(
+        bd=0,
+        bg="#FFFFFF",
+        fg="#000000",
+        highlightthickness=0,
+        font=('Arial', 16)
+    )
+    endDate.place(
+        x=143.5,
+        y=257.5,
+        width=173.0,
+        height=27.0
+    )
 
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
@@ -82,8 +127,8 @@ def mostSoldGraph(canvas,shopname,switch_to_mainmenu):
         plt.title("Most Sold Product", fontsize=16)
         plt.xticks(rotation=45, ha='right')
         plt.tight_layout()
-        plt.savefig("Sales1.png")
-        image2 = Image.open("Sales1.png")
+        plt.savefig("Sales2.png")
+        image2 = Image.open("Sales2.png")
         resizeImage = image2.resize((800,600))
         sales_image = ImageTk.PhotoImage(resizeImage)
         imageSales = canvas.create_image(720, 429.5, image=sales_image)

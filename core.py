@@ -5,6 +5,7 @@ from main_menu import mainScreen
 from register_update import registerProduct
 from resetPass import resetPassword
 from mostSold import mostSoldGraph
+from datebyrange import dateRange
 
 def main():
     # Initialize the main Tkinter window
@@ -37,7 +38,7 @@ def main():
 
     def show_mainmenu(shopname):
         canvas.delete("all")
-        mainScreen(canvas,show_register,shopname,show_mostSold)
+        mainScreen(canvas,show_register,shopname,show_mostSold,show_dateRange)
 
     def show_register(shopname):
         canvas.delete("all")
@@ -50,6 +51,10 @@ def main():
     def show_mostSold(shopname):
         canvas.delete("all")
         mostSoldGraph(canvas,shopname,show_mainmenu)
+
+    def show_dateRange(shopname):
+        canvas.delete("all")
+        dateRange(canvas,shopname,show_mainmenu)
 
 
 
