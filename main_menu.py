@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Label
+from tkinter import ttk
 from PIL import Image,ImageTk
 from fontTools.ttx import process
 from matplotlib.pyplot import title
@@ -116,13 +117,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         215.5,
         image=entry_image_3
     )
-    productBox = Entry(
-        bd=0,
-        bg="#FFFFFF",
-        fg="#000000",
-        highlightthickness=0,
-        font=('Arial', 16)
-    )
+    productBox = ttk.Combobox(font=('Arial',16))
     productBox.place(
         x=10.0,
         y=201.0,
@@ -713,27 +708,19 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
             i.destroy()
         switch_to_mostsold(shopname)
 
+    def fetchValue():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
+        try:
+            current_val = productBox.get()
+            cursor.execute(f"select ProductName from Products where ProductName like '%{current_val}%'")
+            data = cursor.fetchall()
+            products = [d[0] for d in data]
+            productBox.configure(values=products)
+        except Exception:
+            pass
+        con.close()
 
+        canvas.after(2000,fetchValue)
 
-
-
-
-if __name__ == "__main__":
-    window = Tk()
-
-    window.geometry("1440x788")
-    window.configure(bg="#A5D1E1")
-
-    canvas = Canvas(
-        window,
-        bg="#A5D1E1",
-        height=788,
-        width=1440,
-        bd=0,
-        highlightthickness=0,
-        relief="ridge"
-    )
-    con.close()
-    mainScreen(canvas)
-    window.resizable(False,False)
-    window.mainloop()
+    fetchValue()
