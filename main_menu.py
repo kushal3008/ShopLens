@@ -32,11 +32,11 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-
+srno = 0
 def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_daterange):
 
     # Creating Table for a store
-
+    global srno
     con = sqlite3.connect(f"{shopname}.db")
     cursor = con.cursor()
     customerTable = "create table if not exists Customers(CustomerId integer PRIMARY KEY AUTOINCREMENT,Name varchar(255),Email varchar(255) UNIQUE);"
@@ -47,8 +47,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
     cursor.execute(salesTable)
     cursor.execute(buysTable)
     cursor.execute(productTable)
-    con.close()
-
     canvas.configure(bg="#A5D1E1")
     canvas.place(x = 0, y = 0)
     canvas.create_rectangle(
@@ -440,7 +438,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         height=50.0
     )
 
-
     # window.resizable(False, False)
     # window.mainloop()
 
@@ -449,8 +446,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
     def addCustomer():
 
         # Collecting data
-        con = sqlite3.connect(f"{shopname}.db")
-        cursor = con.cursor()
         customerName = str(customerBox.get().lower().strip())
         email = str(emailBox.get().lower().strip())
         productName = str(productBox.get().lower().strip())
@@ -469,13 +464,10 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
             con.commit()
             customerBox.configure(state="readonly")
             emailBox.configure(state="readonly")
-        con.close()
 
     # Creating Function to generate bill
     def addItems():
-        con = sqlite3.connect(f"{shopname}.db")
-        cursor = con.cursor()
-        srno = 0
+        global srno
         customerName = str(customerBox.get().lower().strip())
         email = str(emailBox.get().lower().strip())
         productName = str(productBox.get().lower().strip())
@@ -531,14 +523,11 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
                 messagebox.showinfo(title="Stock Empty",message=f"{productName.capitalize()} is out of Stock")
         else:
             messagebox.showinfo(title="Error",message=f"{productName.capitalize()} not Registered")
-        con.close()
 
 
     # Creating function to rollback
 
     def clear():
-        con = sqlite3.connect(f"{shopname}.db")
-        cursor = con.cursor()
         con.rollback()
         billArea.configure(state="normal")
         billArea.delete(1.0,tk.END)
@@ -546,11 +535,8 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         totalAmount.configure(state="normal")
         totalAmount.delete(0,tk.END)
         totalAmount.configure(state="readonly")
-        con.close()
 
     def generateBill():
-        con = sqlite3.connect(f"{shopname}.db")
-        cursor = con.cursor()
         con.commit()
         email = str(emailBox.get().lower().strip())
         cursor.execute(f"select CustomerId from customers where email = '{email}';")
@@ -583,13 +569,10 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
             billID = 1000
         path, email = generatePDF(billID)
         send_email_with_pdf(path, email)
-        con.close()
 
     # Creating function to generate bill in form of PDFs
 
     def generatePDF(BillId):
-        con = sqlite3.connect(f"{shopname}.db")
-        cursor = con.cursor()
         pdf = FPDF(orientation='P', unit='mm', format='A4')
         pdf.add_page()
 
@@ -661,8 +644,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         path = f"./PDFs/{BillId}.pdf"
         pdf.output(path)
         print("PDF generated successfully!")
-        cursor.close()
-        con.close()
         return (path,email)
 
     #Sending Email to the customer
@@ -709,8 +690,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         switch_to_mostsold(shopname)
 
     def fetchValue():
-        con = sqlite3.connect(f"{shopname}.db")
-        cursor = con.cursor()
         try:
             current_val = productBox.get()
             cursor.execute(f"select ProductName from Products where ProductName like '%{current_val}%'")
@@ -719,8 +698,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
             productBox.configure(values=products)
         except Exception:
             pass
-        con.close()
 
-        canvas.after(2000,fetchValue)
+        canvas.after(1000,fetchValue)
 
     fetchValue()

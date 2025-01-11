@@ -105,7 +105,7 @@ def dateRange(canvas,shopname,switch_to_mainmenu):
     canvas.image = image_image_1
 
 
-    var = [homeButton]
+    var = [homeButton,startDate,endDate]
     def deleteforMainmenu():
         for i in var:
             i.destroy()
