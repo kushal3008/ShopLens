@@ -8,6 +8,7 @@ import sqlite3
 from tkinter import messagebox
 import tkinter as tk
 from datetime import date
+from datetime import datetime
 from fpdf import FPDF
 import smtplib
 import ssl
@@ -584,12 +585,13 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         pdf.set_font(family="Times", style="B", size=16)
         pdf.cell(w=50, h=8, txt=f"BillID: BID{BillId}", ln=1)
 
-        # Fetch and add Date
-        query = f"SELECT Date FROM sales WHERE BillId={BillId} GROUP BY Date;"
-        cursor.execute(query)
-        date = cursor.fetchall()
+        # # Fetch and add Date
+        # query = f"SELECT Date FROM sales WHERE BillId={BillId} GROUP BY Date;"
+        # cursor.execute(query)
+        # date = cursor.fetchall()
+        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         pdf.set_font(family="Times", style="B", size=16)
-        pdf.cell(w=50, h=8, txt=f"Date : {date[0][0]}", ln=1)
+        pdf.cell(w=50, h=8, txt=f"Date : {date}", ln=1)
 
         # Fetch and add Customer Name and Email
         query = f"""
