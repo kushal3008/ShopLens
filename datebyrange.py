@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import connect, title
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Label
 from PIL import Image,ImageTk
 
 OUTPUT_PATH = Path(__file__).parent
@@ -76,8 +76,8 @@ def dateRange(canvas,shopname,switch_to_mainmenu):
         font=('Arial', 16)
     )
     startDate.place(
-        x=143.5,
-        y=169.5,
+        x=57.0,
+        y=152.5,
         width=173.0,
         height=27.0
     )
@@ -89,8 +89,8 @@ def dateRange(canvas,shopname,switch_to_mainmenu):
         font=('Arial', 16)
     )
     endDate.place(
-        x=143.5,
-        y=257.5,
+        x=57.0,
+        y=242.5,
         width=173.0,
         height=27.0
     )
@@ -104,34 +104,65 @@ def dateRange(canvas,shopname,switch_to_mainmenu):
     )
     canvas.image = image_image_1
 
+    generateButton = Button(
+        text="Generate",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        command=lambda :reportbyDate(),
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
 
-    var = [homeButton,startDate,endDate]
+    generateButton.place(
+        x=57.0,
+        y=300.0,
+        width=173.0,
+        height=50.0
+    )
+
+    var = [homeButton,startDate,endDate,generateButton]
     def deleteforMainmenu():
         for i in var:
             i.destroy()
         switch_to_mainmenu(shopname)
 
-    con = sqlite3.connect(f"{shopname}.db")
-    cursor = con.cursor()
-    query = "select Item as Product, Sum(Quantity) as TotalQuantity from Sales group by Item"
-    cursor.execute(query)
-    data = cursor.fetchall()
-    if data:
-        products = [row[0] for row in data]
-        quantities = [row[1] for row in data]
-        plt.figure(figsize=(10, 6), num="Sales Graph")
-        plt.bar(products, quantities, color='skyblue')
-        plt.xlabel('Product', fontsize=12)
-        plt.ylabel("Quantity Sold", fontsize=12)
-        plt.title("Most Sold Product", fontsize=16)
-        plt.xticks(rotation=45, ha='right')
-        plt.tight_layout()
-        plt.savefig("Sales2.png")
-        image2 = Image.open("Sales2.png")
-        resizeImage = image2.resize((800,600))
-        sales_image = ImageTk.PhotoImage(resizeImage)
-        imageSales = canvas.create_image(720, 429.5, image=sales_image)
-        canvas.sales_image = sales_image
-    else:
-        templabel = Label(text="!!!No Sale Data Available!!!")
-    con.close()
+    def reportbyDate():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
+        start = startDate.get()
+        end = endDate.get()
+        try:
+            import datetime
+            # Ensure the input matches the format of the stored date string
+            datetime.datetime.strptime(start, "%Y-%m-%d")
+            datetime.datetime.strptime(end, "%Y-%m-%d")
+        except ValueError:
+            # Display error to the user if dates are invalid
+            error_label = Label(text="Invalid date format! Use YYYY-MM-DD.", fg="red", font=('Arial', 12))
+            error_label.place(x=57.0, y=370.0)
+            return
+        query = "select Item as Product, Sum(Quantity) as TotalQuantity from Sales where Date >= ? and Date <= ? group by Item"
+        cursor.execute(query,(start,end))
+        data = cursor.fetchall()
+        if data:
+            products = [row[0] for row in data]
+            quantities = [row[1] for row in data]
+            plt.figure(figsize=(10, 6), num="Sales Graph")
+            plt.bar(products, quantities, color='skyblue')
+            plt.xlabel('Product', fontsize=12)
+            plt.ylabel("Quantity Sold", fontsize=12)
+            plt.title(f"Sales from {start} to {end}", fontsize=16)
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig("Sales2.png")
+            image2 = Image.open("Sales2.png")
+            resizeImage = image2.resize((800,600))
+            sales_image = ImageTk.PhotoImage(resizeImage)
+            imageSales = canvas.create_image(720, 429.5, image=sales_image)
+            canvas.sales_image = sales_image
+        else:
+            templabel = Label(text="!!!No Sale Data Available!!!",bg="#A5D1E1")
+            templabel.place(x=57,y=370)
+        con.close()
