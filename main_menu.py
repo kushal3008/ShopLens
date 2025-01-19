@@ -493,7 +493,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
                 if data2:
                     billId = int(data2[0]) + 1
                 else:
-                    billId = 1000
+                    billId = 0
                 cursor.execute(f"insert into sales(Item,Quantity,PricePerUnit,Amount,Date,BillId) values('{productName}',{quantity},{pricePerUnit},{amount},'{purDate}',{billId});")
 
                 # Updating Stock
@@ -567,7 +567,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         if data1:
             billID = int(data1[0])
         else:
-            billID = 1000
+            billID = 1
         path, email = generatePDF(billID)
         send_email_with_pdf(path, email)
 

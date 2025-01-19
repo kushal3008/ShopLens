@@ -305,6 +305,8 @@ def registerProduct(canvas,shopname,switch_to_main):
             con.commit()
             messagebox.showinfo(title="Stock Updated",message=f"Updated Stock of {updProduct.capitalize()} to {finalQuantity}")
             con.close()
+            productUpd.delete(0,tk.END)
+            quantityUpd.delete(0,tk.END)
         else:
             messagebox.showinfo(title="Error",message=f"Product {updProduct.capitalize()} is not registered")
     def homepage(var,shopname,switch_to_main):
