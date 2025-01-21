@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="BillId need to be set to 1000 using try2 file and otp should redirect to login page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShopLens.db" beforeDir="false" afterPath="$PROJECT_DIR$/ShopLens.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datebyrange.py" beforeDir="false" afterPath="$PROJECT_DIR$/datebyrange.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/register_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/register_update.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -393,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737046377933</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="BillId need to be set to 1000 using try2 file and otp should redirect to login page">
+      <option name="closed" value="true" />
+      <created>1737306931349</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1737306931350</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

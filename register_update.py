@@ -135,6 +135,7 @@ def registerProduct(canvas,shopname,switch_to_main):
         fill="#FFFFFF",
         font=("Inter", 17, "bold")
     )
+
     regButton = Button(
         text="Register",
         borderwidth=0,
@@ -185,7 +186,7 @@ def registerProduct(canvas,shopname,switch_to_main):
     )
     productUpd.place(
         x=809.0,
-        y=440.0,
+        y=376.0,
         width=355.0,
         height=27.0
     )
@@ -206,14 +207,28 @@ def registerProduct(canvas,shopname,switch_to_main):
     )
     quantityUpd.place(
         x=809.0,
-        y=552.0,
+        y=476.0,
         width=355.0,
         height=27.0
     )
 
+    priceUpd = Entry(
+        bd=0,
+        bg="#FFFFFF",
+        fg="#000716",
+        highlightthickness=0,
+        font=('Arial', 16)
+    )
+
+    priceUpd.place(
+        x=809.0,
+        y=580.0,
+        width=355.0,
+        height=27.0
+    )
     canvas.create_text(
         809.0,
-        412.0,
+        345.0,
         anchor="nw",
         text="Enter Product Name",
         fill="#FFFFFF",
@@ -222,12 +237,22 @@ def registerProduct(canvas,shopname,switch_to_main):
 
     canvas.create_text(
         809.0,
-        524.0,
+        443.0,
         anchor="nw",
         text="Enter Quantity",
         fill="#FFFFFF",
         font=("Inter", 17, "bold")
     )
+
+    canvas.create_text(
+        809.0,
+        549.0,
+        anchor="nw",
+        text="Enter Price Per Unit",
+        fill="#FFFFFF",
+        font=("Inter", 17, "bold")
+    )
+
 
     canvas.create_text(
         855.0,
