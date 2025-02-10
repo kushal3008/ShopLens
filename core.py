@@ -6,6 +6,8 @@ from register_update import registerProduct
 from resetPass import resetPassword
 from mostSold import mostSoldGraph
 from datebyrange import dateRange
+from usertype import userType
+from adminPage import adminpage
 
 def main():
     # Initialize the main Tkinter window
@@ -26,7 +28,17 @@ def main():
     )
     canvas.pack()
 
-    # Function to switch to the login page
+    #Function where the main code starts
+    def show_usertype():
+        canvas.delete("all")
+        userType(canvas)
+
+    # Function to switch to the admin login page
+    def  show_admin():
+        canvas.delete("all")
+        adminpage()
+
+    # Function to switch to the cashier login page
     def show_login():
         canvas.delete("all")  # Clear the canvas for the new page
         loginPage(canvas, show_signin, show_mainmenu,show_forget)
@@ -60,8 +72,7 @@ def main():
 
 
     # Initially, show the login page
-    show_login()
-
+    show_usertype()
 
     # Run the Tkinter main loop
     window.resizable(False,False)
