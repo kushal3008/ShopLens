@@ -292,7 +292,7 @@ def registerProduct(canvas,shopname,switch_to_main):
     homeButton = Button(text="Home",bg="#0F3ADA",fg="#FFFFFF",font=('Inter',20,'bold'),borderwidth=0,
         highlightthickness=0,command=lambda :homepage(var,shopname,switch_to_main))
     homeButton.place(x=0,y=13,width=114,height=40)
-    var = [updateButton,regButton,productReg,productUpd,priceReg,quantityReg,quantityUpd,homeButton]
+    var = [updateButton,regButton,productReg,productUpd,priceReg,quantityReg,quantityUpd,homeButton,priceUpd]
 
     # Creating function to register Product
 

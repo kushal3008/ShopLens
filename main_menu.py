@@ -34,7 +34,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 srno = 0
-def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_daterange):
+def mainScreen(canvas,shopname):
 
     # Creating Table for a store
     global srno
@@ -274,13 +274,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
     canvas.image = image_image_1
 
 
-    entry_image_6 = PhotoImage(
-        file=relative_to_assets("entry_6.png"))
-    entry_bg_6 = canvas.create_image(
-        1302.5,
-        721.0,
-        image=entry_image_6
-    )
     totalAmount = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -296,54 +289,6 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         height=50.0
     )
 
-    button_image_1 = PhotoImage(
-        file=relative_to_assets("button_1.png"))
-    registerButton = Button(
-        text="Register & Update",
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda :deleteforRegister(),
-        relief="flat",
-        bg="#0F3ADA",
-        fg="#FFFFFF",
-        font=("Inter", 20, "bold")
-    )
-    registerButton.place(
-        x=24.0,
-        y=10.0,
-        width=246.0,
-        height=50.0
-    )
-
-    def deleteforRegister():
-        var = [registerButton, salesButton, customerBox, emailBox, productBox, quantityBox, generateButton,
-               totalAmount,dateRangeButton,
-               billArea, checkButton, clearButton, addButton]
-        for i in var:
-            i.destroy()
-        switch_to_register(shopname)
-
-    button_image_2 = PhotoImage(
-        file=relative_to_assets("button_2.png"))
-    salesButton = Button(
-        text="Sales Graph",
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: deleteforMostSold(),
-        relief="flat",
-        bg="#0F3ADA",
-        fg="#FFFFFF",
-        font=("Inter", 20, "bold")
-    )
-    salesButton.place(
-        x=300.0,
-        y=10.0,
-        width=216.0,
-        height=50.0
-    )
-
-    button_image_3 = PhotoImage(
-        file=relative_to_assets("button_3.png"))
     generateButton = Button(
         text="Generate Bill",
         borderwidth=0,
@@ -414,30 +359,8 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         width=89.25732421875,
         height=37.6552734375
     )
-    def deleteforDateRange():
-        var = [registerButton, salesButton, customerBox, emailBox, productBox, quantityBox, generateButton,
-               totalAmount, dateRangeButton,
-               billArea, checkButton, clearButton, addButton]
-        for i in var:
-            i.destroy()
-        switch_to_daterange(shopname)
 
-    dateRangeButton = Button(
-        text="Date Range",
-        borderwidth=0,
-        highlightthickness=0,
-        command=lambda: deleteforDateRange(),
-        relief="flat",
-        bg="#0F3ADA",
-        fg="#FFFFFF",
-        font=("Inter", 20, "bold")
-    )
-    dateRangeButton.place(
-        x=525.0,
-        y=10.0,
-        width=216.0,
-        height=50.0
-    )
+
 
     # window.resizable(False, False)
     # window.mainloop()
@@ -683,13 +606,7 @@ def mainScreen(canvas,switch_to_register,shopname,switch_to_mostsold,switch_to_d
         except Exception as e:
             print(f"Failed to send email: {e}")
 
-    def deleteforMostSold():
-        var = [registerButton, salesButton, customerBox, emailBox, productBox, quantityBox, generateButton,
-               totalAmount,dateRangeButton,
-               billArea, checkButton, clearButton, addButton]
-        for i in var:
-            i.destroy()
-        switch_to_mostsold(shopname)
+
 
     def fetchValue():
         try:

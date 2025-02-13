@@ -1,5 +1,5 @@
 from tkinter import Tk, Canvas, Button
-from LoginPage import loginPage
+from adminPage import loginPage
 from SignInPage import signinPage
 from main_menu import mainScreen
 from register_update import registerProduct
@@ -7,7 +7,8 @@ from resetPass import resetPassword
 from mostSold import mostSoldGraph
 from datebyrange import dateRange
 from usertype import userType
-from adminPage import adminpage
+from cashierlogin import cashierLoginPage
+from adminMainMenu import admin_menu
 
 def main():
     # Initialize the main Tkinter window
@@ -31,45 +32,45 @@ def main():
     #Function where the main code starts
     def show_usertype():
         canvas.delete("all")
-        userType(canvas)
+        userType(canvas,show_cashierloginpage,show_adminloginPage)
+
+    def show_cashierloginpage():
+        canvas.delete("all")
+        cashierLoginPage(canvas,show_cashierMainmenu)
+
+    def show_adminMainmenu(shopname):
+        canvas.delete("all")
+        admin_menu(canvas,show_mostSold,show_register,show_dateRange,shopname)
 
     # Function to switch to the admin login page
-    def  show_admin():
-        canvas.delete("all")
-        adminpage()
-
-    # Function to switch to the cashier login page
-    def show_login():
+    def show_adminloginPage():
         canvas.delete("all")  # Clear the canvas for the new page
-        loginPage(canvas, show_signin, show_mainmenu,show_forget)
+        loginPage(canvas, show_signin, show_adminMainmenu,show_forget)
 
     # Function to switch to the sign-in page
     def show_signin():
         canvas.delete("all")  # Clear the canvas for the new page
         signinPage(canvas, show_login)
 
-    def show_mainmenu(shopname):
+    def show_cashierMainmenu(shopname):
         canvas.delete("all")
-        mainScreen(canvas,show_register,shopname,show_mostSold,show_dateRange)
+        mainScreen(canvas,shopname)
 
     def show_register(shopname):
         canvas.delete("all")
-        registerProduct(canvas,shopname,show_mainmenu)
+        registerProduct(canvas,shopname,show_adminMainmenu)
 
     def show_forget(email):
         canvas.delete("all")
-        resetPassword(canvas,email,show_login)
+        resetPassword(canvas,email,show_adminloginPage)
 
     def show_mostSold(shopname):
         canvas.delete("all")
-        mostSoldGraph(canvas,shopname,show_mainmenu)
+        mostSoldGraph(canvas,shopname,show_adminMainmenu)
 
     def show_dateRange(shopname):
         canvas.delete("all")
-        dateRange(canvas,shopname,show_mainmenu)
-
-
-
+        dateRange(canvas,shopname,show_adminMainmenu)
 
     # Initially, show the login page
     show_usertype()
