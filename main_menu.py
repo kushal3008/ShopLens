@@ -234,7 +234,7 @@ def mainScreen(canvas,shopname,switch_to_login):
         borderwidth=0,
         highlightthickness=0,
         relief="flat",
-        command=lambda :switch_to_login(),
+        command=lambda :delete_for_login(var),
         bg="#0F3ADA",
         fg="#FFFFFF",
         font=("Inter", 20, "bold")
@@ -336,7 +336,7 @@ def mainScreen(canvas,shopname,switch_to_login):
     )
 
 
-
+    var = [homeButton,addButton,checkButton,clearButton,generateButton,totalAmount,billArea,customerBox,productBox,quantityBox,emailBox]
     # window.resizable(False, False)
     # window.mainloop()
 
@@ -580,7 +580,10 @@ def mainScreen(canvas,shopname,switch_to_login):
             print("Email with PDF sent successfully!")
         except Exception as e:
             print(f"Failed to send email: {e}")
-
+    def delete_for_login(var):
+        for i in var:
+            i.destroy()
+        switch_to_login()
 
 
     def fetchValue():
