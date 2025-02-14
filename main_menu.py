@@ -34,7 +34,7 @@ ASSETS_PATH = OUTPUT_PATH / Path("C:/Users/Kushal/OneDrive/Desktop/ShopLens/buil
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 srno = 0
-def mainScreen(canvas,shopname):
+def mainScreen(canvas,shopname,switch_to_login):
 
     # Creating Table for a store
     global srno
@@ -67,13 +67,6 @@ def mainScreen(canvas,shopname):
         font=("Inter Bold", 21 * -1)
     )
 
-    entry_image_1 = PhotoImage(
-        file=relative_to_assets("entry_1.png"))
-    entry_bg_1 = canvas.create_image(
-        187.5,
-        139.5,
-        image=entry_image_1
-    )
     customerBox = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -88,13 +81,6 @@ def mainScreen(canvas,shopname):
         height=27.0
     )
 
-    entry_image_2 = PhotoImage(
-        file=relative_to_assets("entry_2.png"))
-    entry_bg_2 = canvas.create_image(
-        615.5,
-        139.5,
-        image=entry_image_2
-    )
     emailBox = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -109,13 +95,6 @@ def mainScreen(canvas,shopname):
         height=27.0
     )
 
-    entry_image_3 = PhotoImage(
-        file=relative_to_assets("entry_3.png"))
-    entry_bg_3 = canvas.create_image(
-        187.5,
-        215.5,
-        image=entry_image_3
-    )
     productBox = ttk.Combobox(font=('Arial',16))
     productBox.place(
         x=10.0,
@@ -124,13 +103,6 @@ def mainScreen(canvas,shopname):
         height=27.0
     )
 
-    entry_image_4 = PhotoImage(
-        file=relative_to_assets("entry_4.png"))
-    entry_bg_4 = canvas.create_image(
-        615.5,
-        215.5,
-        image=entry_image_4
-    )
     quantityBox = Entry(
         bd=0,
         bg="#FFFFFF",
@@ -242,13 +214,6 @@ def mainScreen(canvas,shopname):
         font=("Inter Bold", 21 * -1)
     )
 
-    entry_image_5 = PhotoImage(
-        file=relative_to_assets("entry_5.png"))
-    entry_bg_5 = canvas.create_image(
-        720.0,
-        489.0,
-        image=entry_image_5
-    )
     billArea = Text(
         bd=0,
         bg="#FFFFFF",
@@ -263,6 +228,18 @@ def mainScreen(canvas,shopname):
         width=1440.0,
         height=348.0
     )
+
+    homeButton = Button(
+        text="Logout",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        command=lambda :switch_to_login(),
+        bg="#0F3ADA",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
+    homeButton.place(x=0,y=10)
 
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
@@ -341,8 +318,6 @@ def mainScreen(canvas,shopname):
         height=37.6552734375
     )
 
-    button_image_4 = PhotoImage(
-        file=relative_to_assets("button_4.png"))
     checkButton = Button(
         text="Check",
         borderwidth=0,
