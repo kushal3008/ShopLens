@@ -322,16 +322,20 @@ def registerProduct(canvas,shopname,switch_to_main):
         cursor = con.cursor()
         updProduct = str(productUpd.get().lower().strip())
         updQuantity = int(quantityUpd.get())
-        cursor.execute(f"select Quantity from Products where ProductName = '{updProduct}';")
+        updPrice = int(priceUpd.get())
+        cursor.execute(f"select Quantity,Price from Products where ProductName = '{updProduct}';")
         data = cursor.fetchone()
         if data:
             finalQuantity = int(data[0]) + updQuantity
             cursor.execute(f"update products set Quantity = {finalQuantity} where ProductName = '{updProduct}'")
+            if data[1] != updPrice:
+                cursor.execute(f"update products set Price = {updPrice} where ProductName = '{updProduct}'")
             con.commit()
-            messagebox.showinfo(title="Stock Updated",message=f"Updated Stock of {updProduct.capitalize()} to {finalQuantity}")
+            messagebox.showinfo(title="Stock and Price Updated",message=f"Updated Stock of {updProduct.capitalize()} to {finalQuantity} and Price of {updProduct.capitalize()} to {updPrice}")
             con.close()
             productUpd.delete(0,tk.END)
             quantityUpd.delete(0,tk.END)
+            priceUpd.delete(0,tk.END)
         else:
             messagebox.showinfo(title="Error",message=f"Product {updProduct.capitalize()} is not registered")
     def homepage(var,shopname,switch_to_main):

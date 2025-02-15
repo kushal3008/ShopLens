@@ -54,7 +54,7 @@ def main():
 
     def show_cashierMainmenu(shopname):
         canvas.delete("all")
-        mainScreen(canvas,shopname,show_cashierloginpage)
+        mainScreen(canvas,shopname,show_usertype)
 
     def show_register(shopname):
         canvas.delete("all")
