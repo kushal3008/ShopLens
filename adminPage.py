@@ -20,7 +20,7 @@ def relative_to_assets(path: str) -> Path:
 
 
 
-def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
+def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset,switch_to_usertype):
     global shopname
     canvas.configure(bg="#5D6795")
     # window = Tk()
@@ -213,7 +213,21 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
         width=353.0,
         height=29.0
     )
-    var = [signinButton,loginButton,emailBox,passwordBox,check,forgotPass]
+
+    backButton = Button(
+        text="Back",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        command=lambda: deleteforUsertype(),
+        bg="#5D6795",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
+
+    backButton.place(x=0, y=10)
+
+    var = [backButton,signinButton,loginButton,emailBox,passwordBox,check,forgotPass]
     def delete(var):
         for i in var:
             i.destroy()
@@ -236,6 +250,10 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset):
             switch_to_reset(email)
         con.close()
 
+    def deleteforUsertype():
+        for i in var:
+            i.destroy()
+        switch_to_usertype()
 
     #window.resizable(False, False)
     # window.mainloop()

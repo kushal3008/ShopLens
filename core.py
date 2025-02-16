@@ -36,7 +36,7 @@ def main():
 
     def show_cashierloginpage():
         canvas.delete("all")
-        cashierLoginPage(canvas,show_cashierMainmenu)
+        cashierLoginPage(canvas,show_cashierMainmenu,show_usertype)
 
     def show_adminMainmenu(shopname):
         canvas.delete("all")
@@ -45,12 +45,12 @@ def main():
     # Function to switch to the admin login page
     def show_adminloginPage():
         canvas.delete("all")  # Clear the canvas for the new page
-        loginPage(canvas, show_signin, show_adminMainmenu,show_forget)
+        loginPage(canvas, show_signin, show_adminMainmenu,show_forget,show_usertype)
 
     # Function to switch to the sign-in page
     def show_signin():
         canvas.delete("all")  # Clear the canvas for the new page
-        signinPage(canvas, show_login)
+        signinPage(canvas, show_adminloginPage)
 
     def show_cashierMainmenu(shopname):
         canvas.delete("all")

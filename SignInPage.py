@@ -24,7 +24,7 @@ def signinPage(canvas,switch_to_login):
     canvas.configure(bg="#5D6795")
     con = sqlite3.connect("ShopLens.db")
     cursor = con.cursor()
-    query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255) Unique, Password varchar(255), ShopName varchar(255),OTP integer);"
+    query = "create table if not exists User(UserId integer primary key autoincrement, UserName varchar(255), Email varchar(255) Unique, Password varchar(255), ShopName varchar(255),EmployeePass varchar(255));"
     cursor.execute(query)
 
     # Creating UI
@@ -183,6 +183,19 @@ def signinPage(canvas,switch_to_login):
         height=37.0
     )
 
+    backButton = Button(
+        text="Back",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        command=lambda: delete(var),
+        bg="#5D6795",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
+
+    backButton.place(x=0, y=10)
+
     entry_image_4 = PhotoImage(
         file=relative_to_assets("entry_4.png"))
     entry_bg_4 = canvas.create_image(
@@ -269,7 +282,7 @@ def signinPage(canvas,switch_to_login):
         fill="#000000",
         font=("Inter",36,"bold")
     )
-    var = [signButton,signEmailBox,signUserBox,signPassBox,shopnameBox,check]
+    var = [signButton,signEmailBox,signUserBox,signPassBox,shopnameBox,check,backButton]
     def delete(var):
         for i in var:
             i.destroy()

@@ -4,7 +4,7 @@ import os
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
 
-def cashierLoginPage(canvas,switch_to_cashierMainMenu):
+def cashierLoginPage(canvas,switch_to_cashierMainMenu,switch_to_usertype):
     canvas.configure(bg="#5D6795")
     canvas.create_rectangle(
         370.0,
@@ -105,14 +105,32 @@ def cashierLoginPage(canvas,switch_to_cashierMainMenu):
         height=75.0
     )
 
+    backButton = Button(
+        text="Back",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        command=lambda: deleteforUsertype(),
+        bg="#5D6795",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
+
+    backButton.place(x=0, y=10)
+
     def login():
         password = str(passwordBox.get()).strip()
         shopname = str(shopbox.get()).strip()
         if password == "Kushal3008" and shopname == "Shopify":
             delete_for_caahierMainMenu(var,shopname)
 
-    var = [passwordBox,shopbox,loginButton,check]
+    var = [passwordBox,shopbox,loginButton,check,backButton]
     def delete_for_caahierMainMenu(var,shopname):
         for i in var:
             i.destroy()
         switch_to_cashierMainMenu(shopname)
+
+    def deleteforUsertype():
+        for i in var:
+            i.destroy()
+        switch_to_usertype()

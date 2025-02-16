@@ -19,7 +19,7 @@ def userType(canvas,switch_to_cashier,switch_to_admin):
         outline="")
 
     cashierButton = Button(
-        text="Login as Cashier",
+        text="Login as Employee",
         borderwidth=0,
         highlightthickness=0,
         font=("Inter", 24, "bold"),
@@ -36,6 +36,8 @@ def userType(canvas,switch_to_cashier,switch_to_admin):
         command=lambda: deleteforadmin()
     )
 
+
+
     cashierButton.place(x=520,y=227,width=400,height=100)
     adminButton.place(x=520,y=467,width=400,height=100)
 
@@ -49,3 +51,4 @@ def userType(canvas,switch_to_cashier,switch_to_admin):
         for i in var:
             i.destroy()
         switch_to_admin()
+
