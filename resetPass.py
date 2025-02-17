@@ -155,9 +155,21 @@ def resetPassword(canvas,email,switch_to_login):
         fill="#000000",
         font=("Inter",28,"bold")
     )
+    backButton = Button(
+        text="Back",
+        borderwidth=0,
+        highlightthickness=0,
+        relief="flat",
+        command=lambda: deleteforlogin(var),
+        bg="#5D6795",
+        fg="#FFFFFF",
+        font=("Inter", 20, "bold")
+    )
+
+    backButton.place(x=0, y=10)
 
 
-    var = [confirmButton,reEnterBox,newBox,otpBox,label1]
+    var = [backButton,confirmButton,reEnterBox,newBox,otpBox,label1]
     def reset():
         con = sqlite3.connect("ShopLens.db")
         cursor = con.cursor()
@@ -177,4 +189,9 @@ def resetPassword(canvas,email,switch_to_login):
         else:
             messagebox.showerror(title="Error",message="Invalid OTP")
         con.close()
+
+    def deleteforlogin(var):
+        for i in var:
+            i.destroy()
+        switch_to_login()
 

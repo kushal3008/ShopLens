@@ -241,6 +241,8 @@ def mainScreen(canvas,shopname,switch_to_login):
     )
     homeButton.place(x=0,y=10)
 
+
+
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
@@ -477,7 +479,7 @@ def mainScreen(canvas,shopname,switch_to_login):
 
         # Add Invoice Number
         pdf.set_font(family="Times", style="B", size=32)
-        pdf.cell(w=185, h=16, txt="ShopLens", ln=1, align="C")
+        pdf.cell(w=185, h=16, txt=f"{shopname.capitalize()}", ln=1, align="C")
 
         # Add Invoice Number
         pdf.set_font(family="Times", style="B", size=16)

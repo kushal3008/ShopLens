@@ -1,3 +1,4 @@
+from idlelib.help import show_idlehelp
 from tkinter import Tk, Canvas, Button
 from adminPage import loginPage
 from SignInPage import signinPage
@@ -40,7 +41,7 @@ def main():
 
     def show_adminMainmenu(shopname):
         canvas.delete("all")
-        admin_menu(canvas,show_mostSold,show_register,show_dateRange,shopname)
+        admin_menu(canvas,show_mostSold,show_register,show_dateRange,show_adminloginPage,shopname)
 
     # Function to switch to the admin login page
     def show_adminloginPage():
