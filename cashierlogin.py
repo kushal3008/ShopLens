@@ -4,6 +4,9 @@ import os
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
 
+from register import cursor
+
+
 def cashierLoginPage(canvas,switch_to_cashierMainMenu,switch_to_usertype):
     canvas.configure(bg="#5D6795")
     canvas.create_rectangle(
@@ -119,10 +122,20 @@ def cashierLoginPage(canvas,switch_to_cashierMainMenu,switch_to_usertype):
     backButton.place(x=0, y=10)
 
     def login():
+        con = sqlite3.connect("ShopLens.db")
+        cursor = con.cursor()
         password = str(passwordBox.get()).strip()
         shopname = str(shopbox.get()).strip()
-        if password == "Kushal3008" and shopname == "Shopify":
-            delete_for_caahierMainMenu(var,shopname)
+        query = f"select EmployeePass from User where Shopname = '{shopname}'"
+        cursor.execute(query)
+        data = cursor.fetchone()
+        if password == "" or shopname == "":
+            messagebox.showerror(title="Field Empty",message="Password or Shopname is empty!!")
+        else:
+            if data[0] == password:
+                delete_for_caahierMainMenu(var,shopname)
+            else:
+                messagebox.showerror(title="Wrong Password",message="Password is incorrect!!")
 
     var = [passwordBox,shopbox,loginButton,check,backButton]
     def delete_for_caahierMainMenu(var,shopname):

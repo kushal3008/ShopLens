@@ -1,8 +1,13 @@
 from pathlib import Path
 import sqlite3
 import os
+import tkinter as tk
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
+
+from register import cursor
+
+
 def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,switch_to_login,shopname):
     canvas.configure(bg="#A5D1E1")
     canvas.create_rectangle(
@@ -99,7 +104,8 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
         bg="#FFFFFF",
         fg="#000716",
         highlightthickness=0,
-        font=('Arial', 16)
+        font=('Arial', 16),
+        show="*"
     )
 
     adminPassBox.place(
@@ -113,6 +119,7 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
         text="Check",
         borderwidth=0,
         highlightthickness=0,
+        command=lambda :checkAdminPass(),
         relief="flat",
         bg="#A5D1E1",
         fg="#000000",
@@ -126,6 +133,7 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
         fg="#000716",
         highlightthickness=0,
         font=('Arial', 16),
+        show="*",
         state="disabled"
     )
 
@@ -159,15 +167,56 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
         borderwidth=0,
         highlightthickness=0,
         relief="flat",
+        command=lambda :changePass(),
         bg="#A5D1E1",
         fg="#000000",
-        font=("Inter", 20, "bold")
+        font=("Inter", 20, "bold"),
+        state="disabled"
     )
 
     confirmButton.place(width=200,height=50,x=620,y=592)
 
 
     var = [registerButton, salesButton, dateRangeButton,backButton,employeePassBox,changeButton,adminPassBox,confirmButton]
+
+    def checkAdminPass():
+        con = sqlite3.connect(f"ShopLens.db")
+        cursor = con.cursor()
+        adminpass = str(adminPassBox.get()).strip()
+        query = f"select Password from User where Shopname = '{shopname}'"
+        cursor.execute(query)
+        data = cursor.fetchone()
+        if data[0] == adminpass:
+            employeePassBox.configure(state="normal")
+            confirmButton.configure(state="normal")
+        else:
+            messagebox.showerror(title="Wrong Password",message="Enter correct admin Password")
+        con.close()
+        cursor.close()
+
+    def changePass():
+        confirmButton.configure(state="normal")
+        EmployeePass = str(employeePassBox.get()).strip()
+        con = sqlite3.connect("ShopLens.db")
+        cursor = con.cursor()
+        query1 = f"select EmployeePass from User where Shopname = '{shopname}' "
+        cursor.execute(query1)
+        data1 = cursor.fetchone()
+        if data1 == EmployeePass:
+            messagebox.showerror(title="Same Password",message="This password already exists!!")
+        elif data1 == "":
+            messagebox.showerror(title="Empty Field",message="Password field is empty!!")
+        else:
+            cursor.execute(f"Update User set EmployeePass = '{EmployeePass}' where Shopname = '{shopname}'")
+            con.commit()
+            adminPassBox.delete(0,tk.END)
+            employeePassBox.delete(0,tk.END)
+            confirmButton.configure(state="disabled")
+            employeePassBox.configure(state="disabled")
+            messagebox.showinfo(title="Password Changed",message="Password Changed Successfully!!")
+        con.close()
+        cursor.close()
+
 
     def deleteforMostSold(var):
         for i in var:
