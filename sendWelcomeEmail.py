@@ -5,7 +5,7 @@ from email.mime.application import MIMEApplication
 from tkinter import messagebox
 
 def send_welcome_email(user,shop,email):
-    subject = "Subject: OTP Confirmation for Reset Password"
+    subject = "Welcome to Shoplens"
     body = f"Hello {user},\nWelcome to ShopLens enjoy your time being here. We will try to assist your {shop} at our best"
     host = "smtp.gmail.com"
     port = 465
