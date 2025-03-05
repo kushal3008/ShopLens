@@ -5,7 +5,9 @@
 
 from pathlib import Path
 import sqlite3
+from sendWelcomeEmail import send_welcome_email
 import os
+from tkinter import messagebox
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import *
@@ -229,17 +231,16 @@ def signinPage(canvas,switch_to_login):
         values = [username, email, password, shopname]
         cursor.execute(f"select * from User where Email = '{email}';")
         result1 = cursor.fetchall()
-        if email == "" or password == "" or username == "" or shopname =="":
-            print("Enter")
+        if email == "":
+            messagebox.showerror(title="Error",message="Enter Email.")
+        elif password == "":
+            messagebox.showerror(title="Error",message="Enter Password.")
+        elif username == "":
+            messagebox.showerror(title="Error",message="Enter Username.")
+        elif shopname == "":
+            messagebox.showerror(title="Error",message="Enter Shopname.")
         elif result1:
-            canvas.create_text(
-                586.0,
-                135.0,
-                anchor="nw",
-                text="! Email Already Registered !",
-                fill="#000000",
-                font=("Inter", 16, "bold")
-            )
+            messagebox.showinfo(title="Email Exists",message="Email already exist.")
         else:
                 cursor.execute(query1, values)
                 con.commit()
@@ -250,6 +251,7 @@ def signinPage(canvas,switch_to_login):
                 cursor.execute(f"select * from User where Email = '{email}';")
                 result = cursor.fetchall()
                 if result:
+                    send_welcome_email(username,shopname,email)
                     delete(var)
                     con.close()
                 else:

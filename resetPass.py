@@ -43,7 +43,7 @@ def resetPassword(canvas,email,switch_to_login):
         497.0,
         463.0,
         anchor="nw",
-        text="Re-Enter New Password",
+        text="Re-enter New Password",
         fill="#000000",
         font=("Inter",20,"bold")
     )
@@ -66,8 +66,7 @@ def resetPassword(canvas,email,switch_to_login):
         font=("Inter",20,"bold")
     )
 
-    label1 = Label(text=f"OTP has been send to {email}",font=('Inter',12,'bold'),bg="#A5D1E1")
-    label1.place(x=532,y=172)
+
 
     entry_image_1 = PhotoImage(
         file=relative_to_assets("entry_1.png"))
@@ -169,26 +168,33 @@ def resetPassword(canvas,email,switch_to_login):
     backButton.place(x=0, y=10)
 
 
-    var = [backButton,confirmButton,reEnterBox,newBox,otpBox,label1]
+    var = [backButton,confirmButton,reEnterBox,newBox,otpBox]
     def reset():
         con = sqlite3.connect("ShopLens.db")
         cursor = con.cursor()
         enteredOtp = str(otpBox.get().strip())
         newPass = str(newBox.get().strip())
         reEnterPass = str(reEnterBox.get().strip())
-        if enteredOtp == otp:
-            if newPass == reEnterPass:
-                cursor.execute(f"UPDATE user set Password = '{newPass}' where email = '{email}'")
-                con.commit()
-                for i in var:
-                    i.destroy()
-                switch_to_login()
-                messagebox.showinfo(title="Password Changed",message="Password has been changed")
-            else:
-                messagebox.showerror(title="Error",message="Passwords do not match")
+        if enteredOtp == "":
+            messagebox.showerror(title="Error",message="Enter OTP.")
+        elif newPass == "":
+            messagebox.showerror(title="Error",message="Enter Password.")
+        elif reEnterPass =="":
+            messagebox.showerror(title="Error",message="Re-enter Password.")
         else:
-            messagebox.showerror(title="Error",message="Invalid OTP")
-        con.close()
+            if enteredOtp == otp:
+                if newPass == reEnterPass:
+                    cursor.execute(f"UPDATE user set Password = '{newPass}' where email = '{email}'")
+                    con.commit()
+                    for i in var:
+                        i.destroy()
+                    switch_to_login()
+                    messagebox.showinfo(title="Password Changed",message="Password has been changed.")
+                else:
+                    messagebox.showerror(title="Error",message="Passwords do not match.")
+            else:
+                messagebox.showerror(title="Error",message="Invalid OTP.")
+            con.close()
 
     def deleteforlogin(var):
         for i in var:

@@ -146,23 +146,21 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset,switc
         global shopname
         email = str(emailBox.get().lower().strip())
         password = str(passwordBox.get().strip())
-        con = sqlite3.connect("ShopLens.db")
-        cursor = con.cursor()
-        cursor.execute(f"select Shopname from User where Email = '{email}' and Password = '{password}'")
-        data = cursor.fetchone()
-        if data:
-            deleteforMain(var,data[0])
+        if email == "":
+            messagebox.showerror(title="Error",message="Enter Email.")
+        elif password == "":
+            messagebox.showerror(title="Error", message="Enter Password.")
         else:
-            canvas.create_text(
-        572.0,
-        193.0,
-        anchor="nw",
-        text="Invalid Email or Password",
-        fill="#000000",
-        font=("Inter",16,"bold")
-    )
-            emailBox.delete(0, 'end')
-            passwordBox.delete(0, 'end')
+            con = sqlite3.connect("ShopLens.db")
+            cursor = con.cursor()
+            cursor.execute(f"select Shopname from User where Email = '{email}' and Password = '{password}'")
+            data = cursor.fetchone()
+            if data:
+                deleteforMain(var,data[0])
+            else:
+                messagebox.showerror(title="Error",message="Incorrect Email or Password.")
+                emailBox.delete(0, 'end')
+                passwordBox.delete(0, 'end')
 
 
     # button_image_1 = PhotoImage(
@@ -243,11 +241,16 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset,switc
         cursor = con.cursor()
         email = str(emailBox.get().lower().strip())
         if email == "":
-            messagebox.showerror(title="Error",message="Enter Email First")
+            messagebox.showerror(title="Error",message="Enter Email First.")
         else:
-            for i in var:
-                i.destroy()
-            switch_to_reset(email)
+            cursor.execute(f"select UserId from User where Email = '{email}'")
+            resultId = cursor.fetchone()
+            if resultId:
+                for i in var:
+                    i.destroy()
+                switch_to_reset(email)
+            else:
+                messagebox.showerror(title="Error",message="No email found, check if the email is registered or not.")
         con.close()
 
     def deleteforUsertype():

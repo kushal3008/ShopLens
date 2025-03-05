@@ -129,13 +129,15 @@ def cashierLoginPage(canvas,switch_to_cashierMainMenu,switch_to_usertype):
         query = f"select EmployeePass from User where Shopname = '{shopname}'"
         cursor.execute(query)
         data = cursor.fetchone()
-        if password == "" or shopname == "":
-            messagebox.showerror(title="Field Empty",message="Password or Shopname is empty!!")
+        if shopname == "":
+            messagebox.showerror(title="Error",message="Enter Shopname.")
+        elif password == "":
+            messagebox.showerror(title="Error",message="Enter Password.")
         else:
             if data[0] == password:
                 delete_for_caahierMainMenu(var,shopname)
             else:
-                messagebox.showerror(title="Wrong Password",message="Password is incorrect!!")
+                messagebox.showerror(title="Error",message="Password is incorrect.")
 
     var = [passwordBox,shopbox,loginButton,check,backButton]
     def delete_for_caahierMainMenu(var,shopname):

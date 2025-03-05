@@ -4,9 +4,9 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from tkinter import messagebox
 
-def send_email(message,email):
+def send_welcome_email(user,shop,email):
     subject = "Subject: OTP Confirmation for Reset Password"
-    body = f"Your OTP is .......{message}"
+    body = f"Hello {user},\nWelcome to ShopLens enjoy your time being here. We will try to assist your {shop} at our best"
     host = "smtp.gmail.com"
     port = 465
     user_name = "kushal.om30@gmail.com"  # Email address
@@ -27,7 +27,7 @@ def send_email(message,email):
         with smtplib.SMTP_SSL(host, port, context=context) as server:
             server.login(user_name, password)
             server.sendmail(user_name, email, msg.as_string())
-        messagebox.showinfo(title="OTP",message=f"OTP has been sent to {email}")
+        messagebox.showinfo(title="Success",message=f"User Registered Successfully.")
     except Exception as e:
         print(f"Failed to send OTP: {e}")
 
