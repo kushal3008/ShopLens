@@ -105,12 +105,58 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
 
     employeeButton.place(x=760, y=10)
 
+    # notificationHolder = Frame(width=300,height=300,background="#0F3ADA")
+    # notificationHolder.place(x=300,y=300)
+    notificationArea = Text(
+        bd=0,
+        bg="#FFFFFF",
+        fg="#000716",
+        highlightthickness=0,
+        font=('Arial', 24),
+        state="disabled"
+    )
+
+    notificationArea.place(
+        x=270,
+        y=171,
+        width=900,
+        height=517
+    )
+
+    canvas.create_rectangle(
+        220.0,
+        121.0,
+        1220.0,
+        738.0,
+        fill="#0F3ADA",
+        outline="")
+
+    def notifications():
+        con = sqlite3.connect(f"{shopname}.db")
+        cursor = con.cursor()
+        cursor.execute("select ProductName from Products")
+        data = cursor.fetchall()
+        products = [i[0] for i in data]
+        stock = []
+        for i in products:
+            cursor.execute(f"select Quantity from Products where ProductName = '{i}' ")
+            raw_quantity = cursor.fetchone()
+            currentStock = raw_quantity[0]
+            cursor.execute(f"select UpdatedQuantity from Products where ProductName = '{i}' ")
+            raw_quantity1 = cursor.fetchone()
+            minStock = raw_quantity1[0] * 0.20
+            if currentStock <= minStock:
+                stock.append(i)
+        for j in range(len(stock)):
+            notificationArea.configure(state="normal")
+            notificationArea.insert(tk.END,f"{j+1}) Quantity of {stock[j]} is less.")
+            notificationArea.configure(state="disabled")
+        cursor.close()
+        con.close()
+    notifications()
 
 
-    notificationHolder = Frame(width=300,height=300,background="#0F3ADA")
-    notificationHolder.place(x=300,y=300)
-
-    var = [registerButton, salesButton, dateRangeButton, employeeButton, backButton]
+    var = [registerButton, salesButton, dateRangeButton, employeeButton, backButton,notificationArea]
     def deleteforMostSold(var):
         for i in var:
             i.destroy()
@@ -134,4 +180,4 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
     def deleteforEmpPass(var):
         for i in var:
             i.destroy()
-        switch_to_EmpPass()
+        switch_to_EmpPass(shopname)

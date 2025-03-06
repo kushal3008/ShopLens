@@ -18,6 +18,15 @@ def userType(canvas,switch_to_cashier,switch_to_admin):
         fill="#A5D1E1",
         outline="")
 
+    canvas.create_text(
+        515.0,
+        130.0,
+        anchor="nw",
+        text="Welcome To ShopLens",
+        fill="#000000",
+        font=("Inter", 28, "bold")
+    )
+
     cashierButton = Button(
         text="Login as Employee",
         borderwidth=0,

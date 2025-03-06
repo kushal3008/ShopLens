@@ -328,6 +328,7 @@ def registerProduct(canvas,shopname,switch_to_main):
         if data:
             finalQuantity = int(data[0]) + updQuantity
             cursor.execute(f"update products set Quantity = {finalQuantity} where ProductName = '{updProduct}'")
+            cursor.execute(f"update products set UpdatedQuantity = {updQuantity} where ProductName = '{updProduct}'")
             if data[1] != updPrice:
                 cursor.execute(f"update products set Price = {updPrice} where ProductName = '{updProduct}'")
             con.commit()

@@ -133,6 +133,15 @@ def employeePassword(canvas,switch_to_adminMainmenu,shopname):
         state="disabled"
     )
 
+    canvas.create_text(
+        503.0,
+        10.0,
+        anchor="nw",
+        text="Employee Password",
+        fill="#FFFFFF",
+        font=('Inter', 34, 'bold')
+    )
+
     confirmButton.place(width=200,height=50,x=620,y=592)
 
 

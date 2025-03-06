@@ -43,7 +43,7 @@ def mainScreen(canvas,shopname,switch_to_login):
     customerTable = "create table if not exists Customers(CustomerId integer PRIMARY KEY AUTOINCREMENT,Name varchar(255),Email varchar(255) UNIQUE);"
     salesTable = "create table if not exists Sales(SalesId integer PRIMARY KEY AUTOINCREMENT, BillId integer, Item varchar(255), Quantity integer, PricePerUnit integer, Amount Integer, Date varchar(255));"
     buysTable = "create table if not exists Buys(BillId integer PRIMARY KEY AUTOINCREMENT, CustomerId integer);"
-    productTable = "create table if not exists Products(ProductId integer PRIMARY KEY AUTOINCREMENT, ProductName varchar(255), Quantity integer, Price integer);"
+    productTable = "create table if not exists Products(ProductId integer PRIMARY KEY AUTOINCREMENT, ProductName varchar(255), Quantity integer, Price integer,UpdatedQuantity integer);"
     cursor.execute(customerTable)
     cursor.execute(salesTable)
     cursor.execute(buysTable)
@@ -352,19 +352,23 @@ def mainScreen(canvas,shopname,switch_to_login):
         productName = str(productBox.get().lower().strip())
         quantity = quantityBox.get()
         purDate = str(date.today())
-
-        cursor.execute(f"select CustomerId from Customers where Email = '{email}'")
-        temp = cursor.fetchall()
-        if temp:
-            customerBox.configure(state="readonly")
-            emailBox.configure(state="readonly")
+        if email == "":
+            messagebox.showerror(title="Error",message="Enter Email.")
+        elif customerName == "":
+            messagebox.showerror(title="Error",message="Enter Customer Name.")
         else:
-            customerBox.configure(state="normal")
-            emailBox.configure(state="normal")
-            cursor.execute(f"insert into Customers(Name,Email) values('{customerName}','{email}');")
-            con.commit()
-            customerBox.configure(state="readonly")
-            emailBox.configure(state="readonly")
+            cursor.execute(f"select CustomerId from Customers where Email = '{email}'")
+            temp = cursor.fetchall()
+            if temp:
+                customerBox.configure(state="readonly")
+                emailBox.configure(state="readonly")
+            else:
+                customerBox.configure(state="normal")
+                emailBox.configure(state="normal")
+                cursor.execute(f"insert into Customers(Name,Email) values('{customerName}','{email}');")
+                con.commit()
+                customerBox.configure(state="readonly")
+                emailBox.configure(state="readonly")
 
     # Creating Function to generate bill
     def addItems():

@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="BillId need to be set to 1000 using try2 file and otp should redirect to login page (create a admin page)">
-      <change afterPath="$PROJECT_DIR$/EmpPassword.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmpPassword.py" beforeDir="false" afterPath="$PROJECT_DIR$/EmpPassword.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/adminMainMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/adminMainMenu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/salesGraph.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/register_update.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/usertype.py" beforeDir="false" afterPath="$PROJECT_DIR$/usertype.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,36 +49,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.LoginPage.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SignInPage.executor&quot;: &quot;Run&quot;,
-    &quot;Python.addButton.executor&quot;: &quot;Run&quot;,
-    &quot;Python.core.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main_menu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mainmenu.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mostSold.executor&quot;: &quot;Run&quot;,
-    &quot;Python.register.executor&quot;: &quot;Run&quot;,
-    &quot;Python.registerProduct.executor&quot;: &quot;Run&quot;,
-    &quot;Python.register_update.executor&quot;: &quot;Run&quot;,
-    &quot;Python.resetPass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.salesGraph.executor&quot;: &quot;Run&quot;,
-    &quot;Python.sendOtp.executor&quot;: &quot;Run&quot;,
-    &quot;Python.try.executor&quot;: &quot;Run&quot;,
-    &quot;Python.try1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.try2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.updatestock.executor&quot;: &quot;Run&quot;,
-    &quot;Python.usertype.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kushal/OneDrive/Desktop/ShopLens/core.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.LoginPage.executor": "Run",
+    "Python.SignInPage.executor": "Run",
+    "Python.addButton.executor": "Run",
+    "Python.adminMainMenu.executor": "Run",
+    "Python.core.executor": "Run",
+    "Python.gui.executor": "Run",
+    "Python.gui1.executor": "Run",
+    "Python.gui2.executor": "Run",
+    "Python.gui3.executor": "Run",
+    "Python.main_menu.executor": "Run",
+    "Python.mainmenu.executor": "Run",
+    "Python.mostSold.executor": "Run",
+    "Python.register.executor": "Run",
+    "Python.registerProduct.executor": "Run",
+    "Python.register_update.executor": "Run",
+    "Python.resetPass.executor": "Run",
+    "Python.salesGraph.executor": "Run",
+    "Python.sendOtp.executor": "Run",
+    "Python.try.executor": "Run",
+    "Python.try1.executor": "Run",
+    "Python.try2.executor": "Run",
+    "Python.updatestock.executor": "Run",
+    "Python.usertype.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Kushal/OneDrive/Desktop/ShopLens/core.py",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Color Scheme Font"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Kushal\OneDrive\Desktop\ShopLens" />
@@ -498,7 +500,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741270294247</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="BillId need to be set to 1000 using try2 file and otp should redirect to login page (create a admin page)">
+      <option name="closed" value="true" />
+      <created>1741273324453</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1741273324453</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
