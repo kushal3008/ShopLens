@@ -27,10 +27,10 @@ def cashierLoginPage(canvas,switch_to_cashierMainMenu,switch_to_usertype):
     )
 
     canvas.create_text(
-        652.0,
-        107.0,
+        525.0,
+        130.0,
         anchor="nw",
-        text="Login",
+        text="Employee Login",
         fill="#000000",
         font=("Inter", 36, "bold")
     )

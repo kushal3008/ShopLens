@@ -69,10 +69,10 @@ def loginPage(canvas,switch_to_signin,switch_to_mainScreen,switch_to_reset,switc
     )
 
     canvas.create_text(
-        652.0,
-        107.0,
+        575.0,
+        130.0,
         anchor="nw",
-        text="Login",
+        text="Admin Login",
         fill="#000000",
         font=("Inter",36,"bold")
     )

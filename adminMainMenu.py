@@ -28,6 +28,9 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
     )
     canvas.image = image_image_1
 
+
+
+
     registerButton = Button(
         text="Register & Update",
         borderwidth=0,
@@ -130,6 +133,15 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
         738.0,
         fill="#0F3ADA",
         outline="")
+
+    canvas.create_text(
+        594.0,
+        124.0,
+        anchor="nw",
+        text="Notifications",
+        fill="#FFFFFF",
+        font=("Inter", 28, "bold")
+    )
 
     def notifications():
         con = sqlite3.connect(f"{shopname}.db")
