@@ -10,6 +10,7 @@ from datebyrange import dateRange
 from usertype import userType
 from cashierlogin import cashierLoginPage
 from adminMainMenu import admin_menu
+from EmpPassword import employeePassword
 
 def main():
     # Initialize the main Tkinter window
@@ -41,7 +42,7 @@ def main():
 
     def show_adminMainmenu(shopname):
         canvas.delete("all")
-        admin_menu(canvas,show_mostSold,show_register,show_dateRange,show_adminloginPage,shopname)
+        admin_menu(canvas,show_mostSold,show_register,show_dateRange,show_adminloginPage,show_EmpPass,shopname)
 
     # Function to switch to the admin login page
     def show_adminloginPage():
@@ -72,6 +73,10 @@ def main():
     def show_dateRange(shopname):
         canvas.delete("all")
         dateRange(canvas,shopname,show_adminMainmenu)
+
+    def show_EmpPass(shopname):
+        canvas.delete("all")
+        employeePassword(canvas,show_adminMainmenu,shopname)
 
     # Initially, show the login page
     show_usertype()
