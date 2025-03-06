@@ -167,6 +167,24 @@ def resetPassword(canvas,email,switch_to_login):
 
     backButton.place(x=0, y=10)
 
+    def passwordcheck(password):
+        if len(password) > 8:
+            cap = spc = char = num = 0
+            for i in password:
+                if i.isupper() == True:
+                    cap = 1
+                elif i.isdigit() == True:
+                    num = 1
+                elif i.isalpha() == True:
+                    char = 1
+                else:
+                    spc = 1
+            if char == cap == spc == num == 1:
+                return True
+            else:
+                messagebox.showerror(title="Error",message="Password must contain a capital letter, a small letter, a number and a special character.")
+        else:
+            messagebox.showerror(title="Error", message="Enter password of minimum length 8.")
 
     var = [backButton,confirmButton,reEnterBox,newBox,otpBox]
     def reset():
@@ -175,26 +193,27 @@ def resetPassword(canvas,email,switch_to_login):
         enteredOtp = str(otpBox.get().strip())
         newPass = str(newBox.get().strip())
         reEnterPass = str(reEnterBox.get().strip())
-        if enteredOtp == "":
-            messagebox.showerror(title="Error",message="Enter OTP.")
-        elif newPass == "":
-            messagebox.showerror(title="Error",message="Enter Password.")
-        elif reEnterPass =="":
-            messagebox.showerror(title="Error",message="Re-enter Password.")
-        else:
-            if enteredOtp == otp:
-                if newPass == reEnterPass:
-                    cursor.execute(f"UPDATE user set Password = '{newPass}' where email = '{email}'")
-                    con.commit()
-                    for i in var:
-                        i.destroy()
-                    switch_to_login()
-                    messagebox.showinfo(title="Password Changed",message="Password has been changed.")
-                else:
-                    messagebox.showerror(title="Error",message="Passwords do not match.")
+        if passwordcheck() == True:
+            if enteredOtp == "":
+                messagebox.showerror(title="Error",message="Enter OTP.")
+            elif newPass == "":
+                messagebox.showerror(title="Error",message="Enter Password.")
+            elif reEnterPass =="":
+                messagebox.showerror(title="Error",message="Re-enter Password.")
             else:
-                messagebox.showerror(title="Error",message="Invalid OTP.")
-            con.close()
+                if enteredOtp == otp:
+                    if newPass == reEnterPass:
+                        cursor.execute(f"UPDATE user set Password = '{newPass}' where email = '{email}'")
+                        con.commit()
+                        for i in var:
+                            i.destroy()
+                        switch_to_login()
+                        messagebox.showinfo(title="Password Changed",message="Password has been changed.")
+                    else:
+                        messagebox.showerror(title="Error",message="Passwords do not match.")
+                else:
+                    messagebox.showerror(title="Error",message="Invalid OTP.")
+                con.close()
 
     def deleteforlogin(var):
         for i in var:

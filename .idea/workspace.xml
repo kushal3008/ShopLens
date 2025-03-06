@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="BillId need to be set to 1000 using try2 file and otp should redirect to login page (create a admin page)" />
+    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="BillId need to be set to 1000 using try2 file and otp should redirect to login page (create a admin page)">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShopLens.db" beforeDir="false" afterPath="$PROJECT_DIR$/ShopLens.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignInPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignInPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resetPass.py" beforeDir="false" afterPath="$PROJECT_DIR$/resetPass.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -476,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741178880189</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="BillId need to be set to 1000 using try2 file and otp should redirect to login page (create a admin page)">
+      <option name="closed" value="true" />
+      <created>1741179122654</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1741179122654</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

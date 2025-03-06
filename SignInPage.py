@@ -219,6 +219,25 @@ def signinPage(canvas,switch_to_login):
         height=37.0
     )
 
+    def passwordcheck(password):
+        if len(password) > 8:
+            cap = spc = char = num = 0
+            for i in password:
+                if i.isupper() == True:
+                    cap = 1
+                elif i.isdigit() == True:
+                    num = 1
+                elif i.isalpha() == True:
+                    char = 1
+                else:
+                    spc = 1
+            if char == cap == spc == num == 1:
+                return True
+            else:
+                messagebox.showerror(title="Error",message="Password must contain a capital letter, a small letter, a number and a special character.")
+        else:
+            messagebox.showerror(title="Error", message="Enter password of minimum length 8.")
+
     # Inserting values
     def insertUserDetails():
         # Fetching values from GUI
@@ -227,21 +246,22 @@ def signinPage(canvas,switch_to_login):
         password = str(signPassBox.get().strip())
         username = str(signUserBox.get().strip())
         shopname = str(shopnameBox.get().strip())
-        query1 = "insert into User(UserName, Email, Password, ShopName) values(?,?,?,?)"
-        values = [username, email, password, shopname]
-        cursor.execute(f"select * from User where Email = '{email}';")
-        result1 = cursor.fetchall()
-        if email == "":
-            messagebox.showerror(title="Error",message="Enter Email.")
-        elif password == "":
-            messagebox.showerror(title="Error",message="Enter Password.")
-        elif username == "":
-            messagebox.showerror(title="Error",message="Enter Username.")
-        elif shopname == "":
-            messagebox.showerror(title="Error",message="Enter Shopname.")
-        elif result1:
-            messagebox.showinfo(title="Email Exists",message="Email already exist.")
-        else:
+        if passwordcheck(password) == True:
+            query1 = "insert into User(UserName, Email, Password, ShopName) values(?,?,?,?)"
+            values = [username, email, password, shopname]
+            cursor.execute(f"select * from User where Email = '{email}';")
+            result1 = cursor.fetchall()
+            if email == "":
+                messagebox.showerror(title="Error",message="Enter Email.")
+            elif password == "":
+                messagebox.showerror(title="Error",message="Enter Password.")
+            elif username == "":
+                messagebox.showerror(title="Error",message="Enter Username.")
+            elif shopname == "":
+                messagebox.showerror(title="Error",message="Enter Shopname.")
+            elif result1:
+                messagebox.showinfo(title="Email Exists",message="Email already exist.")
+            else:
                 cursor.execute(query1, values)
                 con.commit()
                 cursor.execute(f"select Shopname from user where Email = '{email}';")

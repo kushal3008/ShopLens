@@ -203,9 +203,9 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
         cursor.execute(query1)
         data1 = cursor.fetchone()
         if data1 == EmployeePass:
-            messagebox.showerror(title="Same Password",message="This password already exists!!")
+            messagebox.showerror(title="Same Password",message="This password already exists.")
         elif data1 == "":
-            messagebox.showerror(title="Empty Field",message="Password field is empty!!")
+            messagebox.showerror(title="Empty Field",message="Password field is empty.")
         else:
             cursor.execute(f"Update User set EmployeePass = '{EmployeePass}' where Shopname = '{shopname}'")
             con.commit()
@@ -213,7 +213,7 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
             employeePassBox.delete(0,tk.END)
             confirmButton.configure(state="disabled")
             employeePassBox.configure(state="disabled")
-            messagebox.showinfo(title="Password Changed",message="Password Changed Successfully!!")
+            messagebox.showinfo(title="Password Changed",message="Password Changed Successfully.")
         con.close()
         cursor.close()
 
