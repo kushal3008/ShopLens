@@ -156,9 +156,10 @@ def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,
             currentStock = raw_quantity[0]
             cursor.execute(f"select UpdatedQuantity from Products where ProductName = '{i}' ")
             raw_quantity1 = cursor.fetchone()
-            minStock = raw_quantity1[0] * 0.20
-            if currentStock <= minStock:
-                stock.append(i)
+            if raw_quantity1[0] != None:
+                minStock = int(raw_quantity1[0] * 0.20)
+                if currentStock <= minStock:
+                    stock.append(i)
         for j in range(len(stock)):
             notificationArea.configure(state="normal")
             notificationArea.insert(tk.END,f"{j+1}) Quantity of {stock[j]} is less.")
