@@ -9,8 +9,8 @@ def send_welcome_email(user,shop,email):
     body = f"Hello {user},\nWelcome to ShopLens enjoy your time being here. We will try to assist your {shop} at our best"
     host = "smtp.gmail.com"
     port = 465
-    user_name = "kushal.om30@gmail.com"  # Email address
-    password = "evju lcnd zmwl wdow"  # App password
+    user_name = "kushal.limit@gmail.com"  # Email address
+    password = "wbsi hlxp hizf xsnz"  # App password
 
     context = ssl.create_default_context()
 

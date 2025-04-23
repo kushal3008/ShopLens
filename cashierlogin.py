@@ -4,9 +4,6 @@ import os
 from tkinter import messagebox
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
 
-from register import cursor
-
-
 def cashierLoginPage(canvas,switch_to_cashierMainMenu,switch_to_usertype):
     canvas.configure(bg="#5D6795")
     canvas.create_rectangle(

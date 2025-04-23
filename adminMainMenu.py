@@ -5,7 +5,6 @@ import tkinter as tk
 from tkinter import messagebox, Frame
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Checkbutton, IntVar
 
-from register import cursor
 
 
 def admin_menu(canvas,switch_to_mostsold,switch_to_register,switch_to_daterange,switch_to_login,switch_to_EmpPass,shopname):

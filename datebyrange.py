@@ -2,8 +2,6 @@ import sqlite3
 from pathlib import Path
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import connect, title
-# from tkinter import *
-# Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, Label
 from PIL import Image,ImageTk
 

@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Done" />
+    <list default="true" id="632951be-fe19-4166-98c4-4ec8b4c2049c" name="Changes" comment="Done">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmpPassword.py" beforeDir="false" afterPath="$PROJECT_DIR$/EmpPassword.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shopify.db" beforeDir="false" afterPath="$PROJECT_DIR$/Shopify.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignInPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignInPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adminMainMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/adminMainMenu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/adminPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/adminPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cashierlogin.py" beforeDir="false" afterPath="$PROJECT_DIR$/cashierlogin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datebyrange.py" beforeDir="false" afterPath="$PROJECT_DIR$/datebyrange.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_menu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/register_update.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resetPass.py" beforeDir="false" afterPath="$PROJECT_DIR$/resetPass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sendOtp.py" beforeDir="false" afterPath="$PROJECT_DIR$/sendOtp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sendWelcomeEmail.py" beforeDir="false" afterPath="$PROJECT_DIR$/sendWelcomeEmail.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,14 +138,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1735030327824</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Register and Create a bill">
-      <option name="closed" value="true" />
-      <created>1735311596893</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1735311596893</updated>
     </task>
     <task id="LOCAL-00006" summary="Register and Create a bill">
       <option name="closed" value="true" />
@@ -517,7 +523,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745403876567</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Done">
+      <option name="closed" value="true" />
+      <created>1745404154469</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1745404154470</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

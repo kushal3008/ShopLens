@@ -9,8 +9,8 @@ def send_email(message,email):
     body = f"Your OTP is .......{message}"
     host = "smtp.gmail.com"
     port = 465
-    user_name = "kushal.om30@gmail.com"  # Email address
-    password = "evju lcnd zmwl wdow"  # App password
+    user_name = "kushal.limit@gmail.com"  # Email address
+    password = "wbsi hlxp hizf xsnz"  # App password
 
     context = ssl.create_default_context()
 
