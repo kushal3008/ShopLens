@@ -136,8 +136,13 @@ def dateRange(canvas,shopname,switch_to_mainmenu):
             datetime.datetime.strptime(end, "%Y-%m-%d")
         except ValueError:
             # Display error to the user if dates are invalid
-            error_label = Label(text="Invalid date format! Use YYYY-MM-DD.", fg="red", font=('Arial', 12))
-            error_label.place(x=57.0, y=370.0)
+            canvas.create_text(
+                57.0,
+                370.0,
+                anchor="nw",
+                text="Invalid date format! Use YYYY-MM-DD.",
+                fill="#000000",
+                font=('Inter', 10,'bold'))
             return
         query = "select Item as Product, Sum(Quantity) as TotalQuantity from Sales where Date >= ? and Date <= ? group by Item"
         cursor.execute(query,(start,end))
@@ -152,8 +157,8 @@ def dateRange(canvas,shopname,switch_to_mainmenu):
             plt.title(f"Sales from {start} to {end}", fontsize=16)
             plt.xticks(rotation=45, ha='right')
             plt.tight_layout()
-            plt.savefig("Sales2.png")
-            image2 = Image.open("Sales2.png")
+            plt.savefig("DateByRange.png")
+            image2 = Image.open("DateByRange.png")
             resizeImage = image2.resize((800,600))
             sales_image = ImageTk.PhotoImage(resizeImage)
             imageSales = canvas.create_image(720, 429.5, image=sales_image)
