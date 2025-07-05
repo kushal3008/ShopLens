@@ -1,62 +1,73 @@
-ShopLens
-ShopLens is a Python-based shop management system designed to streamline sales, inventory, and customer management for retail environments. The application features modules for admin and cashier operations, sales tracking, stock management, and reporting.
+# ShopLens 🛒
 
-Features
-Admin and cashier login systems
+ShopLens is a simple and powerful store billing and sales analysis system built using Python. It helps store owners to register products, create bills, track sales, view analytics, and much more.
 
-Inventory and stock management
+## 🔧 Features
 
-Sales tracking and reporting (including date range and most sold products)
+- ✅ Product Registration
+- ✅ Create & Manage Bills
+- ✅ Sales Analysis with Graphs 📈
+- ✅ View Sales by Date Range
+- ✅ Most Sold Product Report
+- ✅ Smart Price Update Suggestions
+- ✅ Product Categorization Based on Sales
 
-Customer management
+## 🚀 Getting Started
 
-Email notifications (OTP, welcome emails, password reset)
+### 1. Clone the Repository
 
-PDF report generation
-
-Requirements
-Python 3.7 or higher
-
-Required Python packages (see below)
-
-Installation
-Clone the repository:
-
-bash
+```bash
 git clone https://github.com/kushal3008/ShopLens.git
 cd ShopLens
-Install dependencies:
+```
 
-If a requirements.txt is provided:
+### 2. Install Requirements
 
-bash
+Make sure you have Python installed (version 3.8+ recommended). Then, install dependencies:
+
+```bash
 pip install -r requirements.txt
-Otherwise, ensure you have the following common packages (as inferred from typical shop management apps):
+```
 
-bash
-pip install sqlite3 pillow fpdf
-(Add any other packages as needed based on import errors.)
+> If there's no `requirements.txt`, ensure the following libraries are installed:
+> - `sqlite3` (standard)
+> - `matplotlib`
+> - `pandas`
 
-Usage
-To start the application, run the core.py file:
+You can install missing ones with:
 
-bash
+```bash
+pip install matplotlib pandas
+```
+
+### 3. Run the Program
+
+Execute the main script to start ShopLens:
+
+```bash
 python core.py
-This will launch the main menu and allow you to access all features of ShopLens.
+```
 
-File Structure
-core.py - Main entry point for the application
+## 🗂️ Project Structure
 
-adminMainMenu.py, adminPage.py - Admin functionality
+```
+ShopLens/
+├── core.py               # Main entry point of the app
+├── db/                   # Database-related scripts/files
+├── utils/                # Helper functions and modules
+├── reports/              # Sales reports and analytics
+├── README.md             # Documentation
+└── ...
+```
 
-cashierlogin.py - Cashier login system
+## 🧠 About
 
-main_menu.py - Main menu logic
+This project was developed to simplify store billing operations and provide insights into product sales with minimal manual effort.
 
-ShopLens.db, Shopify.db - Database files
+---
 
-sendOtp.py, sendWelcomeEmail.py, resetPass.py - Email and authentication utilities
+Feel free to contribute, suggest features, or report bugs.
 
-PDFs/ - Generated PDF reports
+## 📬 Contact
 
-assets/ - Image files for the GUI
+Created by [Kushal Prajapati](https://github.com/kushal3008) – happy to connect!
